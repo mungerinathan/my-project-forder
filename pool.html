@@ -1,0 +1,1734 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pool & Recreation | Luxury Hotel</title>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <style>
+        /* ============================================
+                   TABLE OF CONTENTS
+                   1. RESET & BASE
+                   2. DARK MODE
+                   3. THEME TOGGLE
+                   4. HEADER / NAVIGATION
+                   5. HERO SECTION
+                   6. CONTAINER & TITLES
+                   7. POOL INTRO
+                   8. POOL FEATURES
+                   9. POOL SCHEDULE
+                   10. RECREATIONAL ACTIVITIES
+                   11. POOL PACKAGES
+                   12. GUEST REVIEWS
+                   13. AMENITIES
+                   14. BOOKING FORM
+                   15. CTA SECTION
+                   16. BACK HOME
+                   17. TOAST NOTIFICATIONS
+                   18. FOOTER
+                   19. RESPONSIVE
+                ============================================ */
+
+        /* ===== 1. RESET & BASE ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', 'Helvetica', sans-serif;
+            transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+        }
+
+        body {
+            background: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        /* ===== 2. DARK MODE ===== */
+        body.dark-mode {
+            background: #1a1a1a;
+            color: #e0e0e0;
+        }
+
+        body.dark-mode .card,
+        body.dark-mode .hours,
+        body.dark-mode .feature,
+        body.dark-mode .booking-form,
+        body.dark-mode .review-card,
+        body.dark-mode .package-card,
+        body.dark-mode .activity-card,
+        body.dark-mode .pool-feature-item {
+            background: #2a2a2a;
+            color: #e0e0e0;
+        }
+
+        body.dark-mode .hero {
+            background: linear-gradient(rgba(0, 0, 0, .7), rgba(0, 0, 0, .7)),
+                url("https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?w=1600") center/cover;
+        }
+
+        body.dark-mode .card-content p,
+        body.dark-mode .about {
+            color: #bbb;
+        }
+
+        body.dark-mode .hours th {
+            background: #c8a96a;
+            color: #1a1a1a;
+        }
+
+        body.dark-mode .hours td {
+            border-bottom-color: #444;
+        }
+
+        body.dark-mode .pool-rules li {
+            color: #bbb;
+        }
+
+        /* ===== 3. THEME TOGGLE ===== */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: #c8a96a;
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 22px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, .3);
+            transition: 0.3s;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+        }
+
+        /* ===== 4. HEADER / NAVIGATION ===== */
+        .header {
+            position: sticky;
+            top: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 15px 30px;
+            z-index: 100;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, .1);
+        }
+
+        body.dark-mode .header {
+            background: rgba(26, 26, 26, 0.95);
+        }
+
+        .header .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #c8a96a;
+        }
+
+        .logo span {
+            color: #333;
+        }
+
+        body.dark-mode .logo span {
+            color: #e0e0e0;
+        }
+
+        .navbar ul {
+            display: flex;
+            gap: 25px;
+            align-items: center;
+        }
+
+        .navbar ul li a {
+            color: #333;
+            font-weight: 600;
+            transition: 0.3s;
+            position: relative;
+            padding: 8px 0;
+        }
+
+        body.dark-mode .navbar ul li a {
+            color: #e0e0e0;
+        }
+
+        .navbar ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #c8a96a;
+            transition: 0.3s;
+        }
+
+        .navbar ul li a:hover::after,
+        .navbar ul li a.active::after {
+            width: 100%;
+        }
+
+        .navbar ul li a:hover {
+            color: #c8a96a;
+        }
+
+        .btn-login {
+            background: transparent;
+            border: 2px solid #c8a96a;
+            color: #c8a96a !important;
+            padding: 8px 20px !important;
+            border-radius: 30px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .btn-login:hover {
+            background: #c8a96a;
+            color: #fff !important;
+        }
+
+        .btn-book {
+            background: #c8a96a;
+            color: #fff !important;
+            padding: 8px 20px !important;
+            border-radius: 30px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .btn-book:hover {
+            background: #b8943e;
+            transform: translateY(-2px);
+        }
+
+        #menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 28px;
+            color: #c8a96a;
+            cursor: pointer;
+        }
+
+        /* ===== 5. HERO SECTION ===== */
+        .hero {
+            height: 70vh;
+            background: linear-gradient(rgba(0, 0, 0, .5), rgba(0, 0, 0, .5)),
+                url("https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?w=1600") center/cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: #fff;
+            position: relative;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: #c8a96a;
+            color: #fff;
+            padding: 5px 20px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+        }
+
+        .hero h1 {
+            font-size: 60px;
+            margin-bottom: 15px;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero p {
+            font-size: 22px;
+            animation: fadeInUp 1.2s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .scroll-down {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+            font-size: 30px;
+            color: #c8a96a;
+        }
+
+        @keyframes bounce {
+            0%,
+            20%,
+            50%,
+            80%,
+            100% {
+                transform: translateX(-50%) translateY(0);
+            }
+            40% {
+                transform: translateX(-50%) translateY(-20px);
+            }
+            60% {
+                transform: translateX(-50%) translateY(-10px);
+            }
+        }
+
+        /* ===== 6. CONTAINER & TITLES ===== */
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: auto;
+            padding: 70px 0;
+        }
+
+        .title {
+            text-align: center;
+            font-size: 35px;
+            color: #c8a96a;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 3px;
+            background: #c8a96a;
+            margin: 15px auto 0;
+            border-radius: 5px;
+        }
+
+        .about {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 60px;
+            color: #555;
+            font-size: 18px;
+        }
+
+        /* ===== 7. POOL INTRO ===== */
+        .pool-intro {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+            margin-bottom: 60px;
+        }
+
+        .pool-intro-image {
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, .1);
+        }
+
+        .pool-intro-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .pool-intro-text h2 {
+            color: #c8a96a;
+            font-size: 28px;
+            margin-bottom: 15px;
+        }
+
+        .pool-intro-text p {
+            color: #666;
+            font-size: 16px;
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+
+        body.dark-mode .pool-intro-text p {
+            color: #bbb;
+        }
+
+        .pool-intro-text .highlight {
+            color: #c8a96a;
+            font-weight: bold;
+        }
+
+        /* ===== 8. POOL FEATURES ===== */
+        .pool-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+
+        .pool-feature-item {
+            background: #fff;
+            padding: 30px 20px;
+            text-align: center;
+            border-radius: 16px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, .08);
+            transition: 0.3s;
+        }
+
+        .pool-feature-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, .12);
+        }
+
+        .pool-feature-item i {
+            font-size: 40px;
+            color: #c8a96a;
+            margin-bottom: 15px;
+        }
+
+        .pool-feature-item h4 {
+            font-size: 18px;
+            margin-bottom: 8px;
+            color: #1a1410;
+        }
+
+        body.dark-mode .pool-feature-item h4 {
+            color: #e0e0e0;
+        }
+
+        .pool-feature-item p {
+            color: #999;
+            font-size: 14px;
+        }
+
+        /* ===== 9. POOL SCHEDULE / RULES ===== */
+        .schedule-rules {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .hours {
+            background: #fff;
+            padding: 35px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, .08);
+        }
+
+        body.dark-mode .hours {
+            background: #2a2a2a;
+        }
+
+        .hours table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .hours th,
+        .hours td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+        }
+
+        body.dark-mode .hours td {
+            border-bottom-color: #444;
+        }
+
+        .hours th {
+            background: #c8a96a;
+            color: #fff;
+        }
+
+        .pool-rules {
+            background: #fff;
+            padding: 35px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, .08);
+        }
+
+        body.dark-mode .pool-rules {
+            background: #2a2a2a;
+        }
+
+        .pool-rules h3 {
+            color: #c8a96a;
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+
+        .pool-rules li {
+            padding: 10px 0;
+            border-bottom: 1px solid #f0ebe0;
+            color: #555;
+        }
+
+        body.dark-mode .pool-rules li {
+            border-bottom-color: #444;
+            color: #bbb;
+        }
+
+        .pool-rules li:last-child {
+            border-bottom: none;
+        }
+
+        .pool-rules li i {
+            color: #c8a96a;
+            margin-right: 10px;
+        }
+
+        /* ===== 10. RECREATIONAL ACTIVITIES ===== */
+        .activities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+
+        .activity-card {
+            background: #fff;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, .08);
+            transition: 0.4s;
+        }
+
+        .activity-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, .15);
+        }
+
+        body.dark-mode .activity-card {
+            background: #2a2a2a;
+        }
+
+        .activity-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .activity-content {
+            padding: 20px;
+        }
+
+        .activity-content h3 {
+            font-size: 18px;
+            margin-bottom: 8px;
+            color: #1a1410;
+        }
+
+        body.dark-mode .activity-content h3 {
+            color: #e0e0e0;
+        }
+
+        .activity-content p {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        body.dark-mode .activity-content p {
+            color: #bbb;
+        }
+
+        .activity-content .activity-price {
+            display: inline-block;
+            background: #c8a96a;
+            color: #fff;
+            padding: 4px 15px;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 14px;
+            margin-top: 12px;
+        }
+
+        /* ===== 11. POOL PACKAGES ===== */
+        .packages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .package-card {
+            background: #fff;
+            border-radius: 16px;
+            padding: 35px 25px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, .08);
+            text-align: center;
+            transition: 0.4s;
+            border: 2px solid transparent;
+            position: relative;
+        }
+
+        .package-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, .15);
+        }
+
+        body.dark-mode .package-card {
+            background: #2a2a2a;
+        }
+
+        .package-card.popular {
+            border-color: #c8a96a;
+        }
+
+        .package-card .popular-badge {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #c8a96a;
+            color: #fff;
+            padding: 4px 20px;
+            border-radius: 30px;
+            font-size: 12px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .package-card .package-icon {
+            font-size: 45px;
+            margin-bottom: 15px;
+        }
+
+        .package-card h3 {
+            font-size: 22px;
+            margin-bottom: 10px;
+            color: #1a1410;
+        }
+
+        body.dark-mode .package-card h3 {
+            color: #e0e0e0;
+        }
+
+        .package-card .package-price {
+            font-size: 32px;
+            font-weight: bold;
+            color: #c8a96a;
+            margin: 10px 0;
+        }
+
+        .package-card .package-price small {
+            font-size: 16px;
+            font-weight: normal;
+            color: #999;
+        }
+
+        .package-card ul {
+            text-align: left;
+            padding: 15px 0;
+        }
+
+        .package-card ul li {
+            padding: 8px 0;
+            border-bottom: 1px solid #f0ebe0;
+            color: #666;
+        }
+
+        body.dark-mode .package-card ul li {
+            color: #bbb;
+            border-bottom-color: #444;
+        }
+
+        .package-card ul li:last-child {
+            border-bottom: none;
+        }
+
+        .package-card ul li i {
+            color: #c8a96a;
+            margin-right: 10px;
+        }
+
+        .package-card .btn {
+            margin-top: 10px;
+        }
+
+        /* ===== 12. GUEST REVIEWS ===== */
+        .review-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+
+        .review-card {
+            background: #fff;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, .08);
+            text-align: center;
+        }
+
+        body.dark-mode .review-card {
+            background: #2a2a2a;
+        }
+
+        .review-card .stars {
+            color: #f1c40f;
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .review-card .review-text {
+            font-style: italic;
+            color: #555;
+            margin: 10px 0;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        body.dark-mode .review-card .review-text {
+            color: #bbb;
+        }
+
+        .review-card .reviewer {
+            font-weight: bold;
+            color: #c8a96a;
+        }
+
+        .review-card .reviewer span {
+            font-weight: normal;
+            color: #999;
+            font-size: 13px;
+        }
+
+        .review-card .reviewer-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #c8a96a, #b8943e);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 15px;
+            font-size: 28px;
+            color: #fff;
+        }
+
+        /* ===== 13. AMENITIES ===== */
+        .amenities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
+        }
+
+        .amenity-item {
+            background: #fff;
+            padding: 25px 15px;
+            text-align: center;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, .08);
+            transition: 0.3s;
+        }
+
+        .amenity-item:hover {
+            transform: translateY(-5px);
+        }
+
+        body.dark-mode .amenity-item {
+            background: #2a2a2a;
+        }
+
+        .amenity-item i {
+            font-size: 35px;
+            color: #c8a96a;
+            margin-bottom: 12px;
+        }
+
+        .amenity-item h4 {
+            font-size: 14px;
+            color: #1a1410;
+        }
+
+        body.dark-mode .amenity-item h4 {
+            color: #e0e0e0;
+        }
+
+        /* ===== 14. BOOKING FORM ===== */
+        .booking-form {
+            margin-top: 40px;
+            background: #fff;
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, .08);
+        }
+
+        body.dark-mode .booking-form {
+            background: #2a2a2a;
+        }
+
+        .booking-form .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .booking-form label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        body.dark-mode .booking-form label {
+            color: #bbb;
+        }
+
+        .booking-form input,
+        .booking-form select,
+        .booking-form textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: 0.3s;
+            background: #fafafa;
+            font-family: inherit;
+        }
+
+        body.dark-mode .booking-form input,
+        body.dark-mode .booking-form select,
+        body.dark-mode .booking-form textarea {
+            background: #333;
+            border-color: #555;
+            color: #e0e0e0;
+        }
+
+        .booking-form input:focus,
+        .booking-form select:focus,
+        .booking-form textarea:focus {
+            border-color: #c8a96a;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(200, 169, 106, 0.2);
+        }
+
+        .booking-form textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        /* ===== 15. CTA SECTION ===== */
+        .cta {
+            margin-top: 60px;
+            background: linear-gradient(135deg, #1f1f1f, #0d2b3e);
+            color: #fff;
+            text-align: center;
+            padding: 60px 30px;
+            border-radius: 16px;
+        }
+
+        body.dark-mode .cta {
+            background: linear-gradient(135deg, #0a0a0a, #0d1a2a);
+        }
+
+        .cta h2 {
+            margin-bottom: 20px;
+            font-size: 32px;
+        }
+
+        .cta p {
+            color: #ccc;
+            font-size: 18px;
+        }
+
+        .btn {
+            display: inline-block;
+            margin-top: 20px;
+            background: #c8a96a;
+            color: #fff;
+            text-decoration: none;
+            padding: 14px 35px;
+            border-radius: 30px;
+            transition: .3s;
+            border: none;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background: #b8943e;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, .2);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid #c8a96a;
+            color: #c8a96a;
+        }
+
+        .btn-secondary:hover {
+            background: #c8a96a;
+            color: #fff;
+        }
+
+        /* ===== 16. BACK HOME ===== */
+        .home {
+            text-align: center;
+            margin: 50px 0;
+        }
+
+        .home a {
+            display: inline-block;
+            text-decoration: none;
+            background: #333;
+            color: #fff;
+            padding: 14px 30px;
+            border-radius: 30px;
+            transition: .3s;
+        }
+
+        body.dark-mode .home a {
+            background: #444;
+        }
+
+        .home a:hover {
+            background: #c8a96a;
+        }
+
+        /* ===== 17. TOAST NOTIFICATIONS ===== */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #333;
+            color: #fff;
+            padding: 18px 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, .3);
+            transform: translateY(100px);
+            opacity: 0;
+            transition: 0.5s;
+            z-index: 999;
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .toast.success {
+            background: #27ae60;
+        }
+
+        .toast.error {
+            background: #e74c3c;
+        }
+
+        /* ===== 18. FOOTER ===== */
+        .footer {
+            background: #111;
+            color: #fff;
+            padding: 50px 0 0;
+        }
+
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 40px;
+            padding: 0 0 30px;
+        }
+
+        .footer-box h3 {
+            color: #c8a96a;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+
+        .footer-box p {
+            color: #aaa;
+            font-size: 14px;
+            line-height: 1.8;
+            margin-bottom: 10px;
+        }
+
+        .footer-box ul li {
+            padding: 6px 0;
+        }
+
+        .footer-box ul li a {
+            color: #aaa;
+            transition: 0.3s;
+        }
+
+        .footer-box ul li a:hover {
+            color: #c8a96a;
+            padding-left: 5px;
+        }
+
+        .footer-logo {
+            font-size: 24px;
+            color: #c8a96a;
+            margin-bottom: 15px;
+        }
+
+        .footer-logo i {
+            margin-right: 10px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .social-links a {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 40px;
+            height: 40px;
+            background: #222;
+            color: #fff;
+            border-radius: 50%;
+            transition: 0.3s;
+        }
+
+        .social-links a:hover {
+            background: #c8a96a;
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #222;
+            padding: 20px 0;
+            text-align: center;
+            color: #888;
+            font-size: 14px;
+        }
+
+        /* ===== 19. RESPONSIVE ===== */
+        @media(max-width: 992px) {
+            .pool-intro {
+                grid-template-columns: 1fr;
+            }
+
+            .pool-intro-image {
+                max-height: 300px;
+            }
+
+            .schedule-rules {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media(max-width: 768px) {
+            .hero h1 {
+                font-size: 40px;
+            }
+
+            .hero p {
+                font-size: 18px;
+            }
+
+            #menu-btn {
+                display: block;
+            }
+
+            .navbar ul {
+                display: none;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                right: 0;
+                background: #fff;
+                flex-direction: column;
+                padding: 20px;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, .1);
+                gap: 15px;
+            }
+
+            body.dark-mode .navbar ul {
+                background: #1a1a1a;
+            }
+
+            .navbar ul.show {
+                display: flex;
+            }
+
+            .theme-toggle {
+                top: 70px;
+                right: 20px;
+                width: 40px;
+                height: 40px;
+                font-size: 18px;
+            }
+
+            .booking-form .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hours {
+                padding: 20px;
+                overflow-x: auto;
+            }
+
+            .hours table {
+                font-size: 14px;
+            }
+
+            .hours th,
+            .hours td {
+                padding: 10px;
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .social-links {
+                justify-content: center;
+            }
+
+            .header .container {
+                width: 100%;
+                padding: 0 10px;
+            }
+        }
+
+        @media(max-width: 480px) {
+            .hero h1 {
+                font-size: 30px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            .container {
+                padding: 40px 0;
+            }
+
+            .title {
+                font-size: 28px;
+            }
+
+            .packages-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .activities-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .pool-features {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .cta {
+                padding: 40px 20px;
+            }
+
+            .cta h2 {
+                font-size: 24px;
+            }
+
+            .btn {
+                padding: 12px 25px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== DARK MODE TOGGLE ===== -->
+    <button class="theme-toggle" onclick="toggleTheme()" id="themeToggle">
+        🌙
+    </button>
+
+    <!-- ===== TOAST NOTIFICATION ===== -->
+    <div class="toast" id="toast"></div>
+
+    <!-- ===== HEADER / NAVIGATION ===== -->
+    <header class="header">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-hotel"></i>
+                <span>Luxury Hotel</span>
+            </a>
+
+            <nav class="navbar" id="navbar">
+            <ul>
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="room.html">Rooms</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="login.html" class="btn btn-login">Login</a></li>
+                <li><a href="booking.html" class="btn btn-book">Book</a></li>
+            </ul>
+        </nav>
+
+            <button id="menu-btn" onclick="toggleMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- ===== HERO SECTION ===== -->
+    <section class="hero">
+        <div>
+            <div class="hero-badge">🏆 Luxury Resort Pool</div>
+            <h1>Pool & Recreation</h1>
+            <p>Dive Into Luxury — Relax, Swim & Enjoy</p>
+            <div class="scroll-down">
+                <i class="fas fa-chevron-down"></i>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== MAIN CONTENT ===== -->
+    <div class="container">
+
+        <!-- Welcome Section -->
+        <h2 class="title">Welcome to Our Pool</h2>
+        <p class="about">
+            Experience the ultimate aquatic luxury at our stunning infinity pool. Overlooking the city skyline,
+            our pool area offers a serene escape where you can swim, lounge, and soak up the sun in style.
+            Perfect for relaxation, family fun, or romantic evenings.
+        </p>
+
+        <!-- ===== POOL INTRO ===== -->
+        <div class="pool-intro">
+            <div class="pool-intro-image">
+                <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800" alt="Luxury Pool">
+            </div>
+            <div class="pool-intro-text">
+                <h2>Your Paradise Awaits</h2>
+                <p>
+                    Our <span class="highlight">infinity-edge pool</span> stretches out to meet the horizon,
+                    creating a breathtaking visual experience. Whether you're looking to swim laps,
+                    relax on a lounger, or enjoy a cocktail at the poolside bar, we have everything
+                    you need for the perfect day.
+                </p>
+                <p>
+                    <span class="highlight">🏊 25-meter</span> heated infinity pool
+                </p>
+                <p>
+                    <span class="highlight">🌅</span> Panoramic city views
+                </p>
+                <p>
+                    <span class="highlight">🍹</span> Poolside bar & restaurant
+                </p>
+            </div>
+        </div>
+
+        <!-- ===== POOL FEATURES ===== -->
+        <h2 class="title" id="features">Pool Features</h2>
+
+        <div class="pool-features">
+            <div class="pool-feature-item">
+                <i class="fas fa-water"></i>
+                <h4>Heated Pool</h4>
+                <p>Perfect temperature year-round</p>
+            </div>
+            <div class="pool-feature-item">
+                <i class="fas fa-child"></i>
+                <h4>Kids' Pool</h4>
+                <p>Safe and fun for children</p>
+            </div>
+            <div class="pool-feature-item">
+                <i class="fas fa-hot-tub"></i>
+                <h4>Jacuzzi</h4>
+                <p>Relaxing hydrotherapy jets</p>
+            </div>
+            <div class="pool-feature-item">
+                <i class="fas fa-umbrella-beach"></i>
+                <h4>Poolside Bar</h4>
+                <p>Refreshing drinks & cocktails</p>
+            </div>
+            <div class="pool-feature-item">
+                <i class="fas fa-chair"></i>
+                <h4>Luxury Loungers</h4>
+                <p>Comfortable sunbeds & cabanas</p>
+            </div>
+            <div class="pool-feature-item">
+                <i class="fas fa-shield-alt"></i>
+                <h4>Lifeguard</h4>
+                <p>Professional supervision</p>
+            </div>
+        </div>
+
+        <!-- ===== SCHEDULE & RULES ===== -->
+        <h2 class="title" id="schedule">Pool Schedule & Rules</h2>
+
+        <div class="schedule-rules">
+
+            <!-- Opening Hours -->
+            <div class="hours">
+                <h2 class="title" style="font-size:24px; margin-bottom:20px;">🕐 Opening Hours</h2>
+                <table>
+                    <tr>
+                        <th>Day</th>
+                        <th>Time</th>
+                    </tr>
+                    <tr>
+                        <td>Monday - Friday</td>
+                        <td>7:00 AM - 9:00 PM</td>
+                    </tr>
+                    <tr>
+                        <td>Saturday - Sunday</td>
+                        <td>7:00 AM - 10:00 PM</td>
+                    </tr>
+                    <tr>
+                        <td>🕊️ Happy Hour</td>
+                        <td>4:00 PM - 6:00 PM</td>
+                    </tr>
+                    <tr>
+                        <td>🏊 Adult Swim</td>
+                        <td>7:00 AM - 10:00 AM</td>
+                    </tr>
+                    <tr>
+                        <td>👨‍👩‍👧‍👦 Family Time</td>
+                        <td>10:00 AM - 6:00 PM</td>
+                    </tr>
+                </table>
+            </div>
+
+            <!-- Pool Rules -->
+            <div class="pool-rules">
+                <h3>📋 Pool Rules</h3>
+                <ul>
+                    <li><i class="fas fa-check-circle"></i> Swimwear required at all times</li>
+                    <li><i class="fas fa-check-circle"></i> No diving in shallow areas</li>
+                    <li><i class="fas fa-check-circle"></i> Children under 12 must be supervised</li>
+                    <li><i class="fas fa-check-circle"></i> No glass containers near pool</li>
+                    <li><i class="fas fa-check-circle"></i> Shower before entering the pool</li>
+                    <li><i class="fas fa-check-circle"></i> Pool towels provided by hotel</li>
+                    <li><i class="fas fa-check-circle"></i> Please respect other guests</li>
+                </ul>
+            </div>
+
+        </div>
+
+        <!-- ===== RECREATIONAL ACTIVITIES ===== -->
+        <h2 class="title" id="activities">Recreational Activities</h2>
+
+        <div class="activities-grid">
+
+            <div class="activity-card">
+                <img src="https://images.unsplash.com/photo-1535982330050-f1c2fb79ff78?w=800" alt="Water Aerobics">
+                <div class="activity-content">
+                    <h3>🏊 Water Aerobics</h3>
+                    <p>Fun and effective low-impact workout in the pool. Great for all fitness levels.</p>
+                    <span class="activity-price">Free</span>
+                </div>
+            </div>
+
+            <div class="activity-card">
+                <img src="https://images.unsplash.com/photo-1574958269340-fa927503f3dd?w=800" alt="Volleyball">
+                <div class="activity-content">
+                    <h3>🏐 Beach Volleyball</h3>
+                    <p>Enjoy a friendly game on our private sand court. Equipment provided.</p>
+                    <span class="activity-price">Free</span>
+                </div>
+            </div>
+
+            <div class="activity-card">
+                <img src="https://images.unsplash.com/photo-1560272564-c83b66b1ad12?w=800" alt="Yoga">
+                <div class="activity-content">
+                    <h3>🧘 Poolside Yoga</h3>
+                    <p>Morning yoga sessions overlooking the pool. Find your inner peace.</p>
+                    <span class="activity-price">$15</span>
+                </div>
+            </div>
+
+            <div class="activity-card">
+                <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800" alt="Aqua Zumba">
+                <div class="activity-content">
+                    <h3>💃 Aqua Zumba</h3>
+                    <p>High-energy dance workout in the water. Fun and refreshing!</p>
+                    <span class="activity-price">$20</span>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ===== POOL PACKAGES ===== -->
+        <h2 class="title" id="packages">Pool Packages</h2>
+
+        <div class="packages-grid">
+
+            <div class="package-card">
+                <div class="package-icon">🌊</div>
+                <h3>Day Pass</h3>
+                <div class="package-price">$25 <small>/ day</small></div>
+                <ul>
+                    <li><i class="fas fa-check"></i> Full pool access</li>
+                    <li><i class="fas fa-check"></i> Pool towel included</li>
+                    <li><i class="fas fa-check"></i> Complimentary water</li>
+                    <li><i class="fas fa-check"></i> Lounge chair</li>
+                </ul>
+                <a href="booking.html" class="btn">Book Now</a>
+            </div>
+
+            <div class="package-card popular">
+                <div class="popular-badge">⭐ Best Value</div>
+                <div class="package-icon">🍹</div>
+                <h3>Premium Package</h3>
+                <div class="package-price">$65 <small>/ day</small></div>
+                <ul>
+                    <li><i class="fas fa-check"></i> Full pool access</li>
+                    <li><i class="fas fa-check"></i> Private cabana</li>
+                    <li><i class="fas fa-check"></i> 2 cocktails of your choice</li>
+                    <li><i class="fas fa-check"></i> Poolside lunch</li>
+                    <li><i class="fas fa-check"></i> Towel & robe service</li>
+                </ul>
+                <a href="#book" class="btn">Book Now</a>
+            </div>
+
+            <div class="package-card">
+                <div class="package-icon">👨‍👩‍👧‍👦</div>
+                <h3>Family Package</h3>
+                <div class="package-price">$80 <small>/ family</small></div>
+                <ul>
+                    <li><i class="fas fa-check"></i> 2 Adults + 2 Kids access</li>
+                    <li><i class="fas fa-check"></i> Kids' pool access</li>
+                    <li><i class="fas fa-check"></i> Family cabana</li>
+                    <li><i class="fas fa-check"></i> Kids' lunch included</li>
+                    <li><i class="fas fa-check"></i> Pool toys provided</li>
+                </ul>
+                <a href="#book" class="btn">Book Now</a>
+            </div>
+
+        </div>
+
+        <!-- ===== GUEST REVIEWS ===== -->
+        <h2 class="title" id="reviews">Guest Reviews</h2>
+
+        <div class="review-grid">
+            <div class="review-card">
+                <div class="reviewer-avatar">👨</div>
+                <div class="stars">⭐⭐⭐⭐⭐</div>
+                <p class="review-text">"Absolutely stunning infinity pool! The view is breathtaking and the service is impeccable. Highly recommend!"</p>
+                <div class="reviewer">Michael Johnson <span>- 🇺🇸</span></div>
+            </div>
+            <div class="review-card">
+                <div class="reviewer-avatar">👩</div>
+                <div class="stars">⭐⭐⭐⭐⭐</div>
+                <p class="review-text">"The best pool experience I've ever had. The cabanas are luxurious and the cocktails are amazing!"</p>
+                <div class="reviewer">Jessica Williams <span>- 🇬🇧</span></div>
+            </div>
+            <div class="review-card">
+                <div class="reviewer-avatar">👨</div>
+                <div class="stars">⭐⭐⭐⭐</div>
+                <p class="review-text">"Great for families! The kids loved the children's pool and the staff were very friendly and helpful."</p>
+                <div class="reviewer">David Kim <span>- 🇨🇦</span></div>
+            </div>
+        </div>
+
+        <!-- ===== AMENITIES ===== -->
+        <h2 class="title" id="amenities">Pool Amenities</h2>
+
+        <div class="amenities-grid">
+            <div class="amenity-item">
+                <i class="fas fa-towel"></i>
+                <h4>Pool Towels</h4>
+            </div>
+            <div class="amenity-item">
+                <i class="fas fa-umbrella-beach"></i>
+                <h4>Sun Umbrellas</h4>
+            </div>
+            <div class="amenity-item">
+                <i class="fas fa-chair"></i>
+                <h4>Luxury Loungers</h4>
+            </div>
+            <div class="amenity-item">
+                <i class="fas fa-shower"></i>
+                <h4>Outdoor Showers</h4>
+            </div>
+            <div class="amenity-item">
+                <i class="fas fa-lock"></i>
+                <h4>Lockers</h4>
+            </div>
+            <div class="amenity-item">
+                <i class="fas fa-wifi"></i>
+                <h4>Free WiFi</h4>
+            </div>
+            <div class="amenity-item">
+                <i class="fas fa-music"></i>
+                <h4>Poolside Music</h4>
+            </div>
+            <div class="amenity-item">
+                <i class="fas fa-first-aid"></i>
+                <h4>First Aid</h4>
+            </div>
+        </div>
+
+        <!-- ===== BOOKING FORM ===== -->
+        <h2 class="title" id="book">📅 Book Your Pool Day</h2>
+
+        <div class="booking-form">
+            <form onsubmit="bookPool(event)">
+                <div class="form-grid">
+                    <div>
+                        <label for="bookName">Full Name</label>
+                        <input type="text" id="bookName" placeholder="John Doe" required>
+                    </div>
+                    <div>
+                        <label for="bookEmail">Email</label>
+                        <input type="email" id="bookEmail" placeholder="john@example.com" required>
+                    </div>
+                    <div>
+                        <label for="bookPhone">Phone</label>
+                        <input type="tel" id="bookPhone" placeholder="+1 234 567 890" required>
+                    </div>
+                    <div>
+                        <label for="bookPackage">Select Package</label>
+                        <select id="bookPackage" required>
+                            <option value="">Choose a package...</option>
+                            <option value="Day Pass">Day Pass - $25</option>
+                            <option value="Premium Package">Premium Package - $65</option>
+                            <option value="Family Package">Family Package - $80</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="bookDate">Date</label>
+                        <input type="date" id="bookDate" required>
+                    </div>
+                    <div>
+                        <label for="bookTime">Time</label>
+                        <select id="bookTime" required>
+                            <option value="8:00 AM">8:00 AM</option>
+                            <option value="9:00 AM">9:00 AM</option>
+                            <option value="10:00 AM">10:00 AM</option>
+                            <option value="11:00 AM">11:00 AM</option>
+                            <option value="12:00 PM">12:00 PM</option>
+                            <option value="1:00 PM">1:00 PM</option>
+                            <option value="2:00 PM">2:00 PM</option>
+                            <option value="3:00 PM">3:00 PM</option>
+                            <option value="4:00 PM">4:00 PM</option>
+                        </select>
+                    </div>
+                </div>
+                <div style="margin-top:15px;">
+                    <label for="bookNotes">Special Requests</label>
+                    <textarea id="bookNotes" placeholder="Any special requests or preferences..."></textarea>
+                </div>
+                <div style="margin-top:20px; text-align:center;">
+                    <button type="submit" class="btn">🏊 Book Now</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- ===== CTA SECTION ===== -->
+        <div class="cta">
+            <h2>🌊 Dive Into Luxury Today</h2>
+            <p>
+                Experience the ultimate poolside relaxation. Book your day pass or package now
+                and enjoy our world-class facilities.
+            </p>
+            <a href="#book" class="btn">Book Now</a>
+            <a href="index.html" class="btn btn-secondary" style="margin-left:15px;">🏠 WiFi Page</a>
+        </div>
+
+        <!-- ===== BACK HOME ===== -->
+        <div class="home">
+            <a href="index.html">
+                🏠 Back To Home
+            </a>
+        </div>
+
+    </div>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+        <div class="container footer-container">
+
+            <!-- Hotel Info -->
+            <div class="footer-box">
+                <h2 class="footer-logo">
+                    <i class="fas fa-hotel"></i> Luxury Hotel
+                </h2>
+                <p>
+                    Experience luxury, comfort, and world-class hospitality.
+                    We provide premium rooms and exceptional services to make
+                    every stay unforgettable.
+                </p>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="footer-box">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="room.html">Rooms</a></li>
+                    <li><a href="restaurant.html">Restaurant</a></li>
+                    <li><a href="spa.html">Spa</a></li>
+                    <li><a href="pool.html">Pool</a></li>
+                </ul>
+            </div>
+
+            <!-- Services -->
+            <div class="footer-box">
+                <h3>Services</h3>
+                <ul>
+                    <li>Luxury Rooms</li>
+                    <li>Restaurant</li>
+                    <li>Spa & Wellness</li>
+                    <li>Swimming Pool</li>
+                    <li>Airport Pickup</li>
+                </ul>
+            </div>
+
+            <!-- Contact -->
+            <div class="footer-box">
+                <h3>Contact Us</h3>
+                <p>
+                    <i class="fas fa-map-marker-alt"></i>
+                    Kigali, Rwanda
+                </p>
+                <p>
+                    <i class="fas fa-phone"></i>
+                    +250 788 000 000
+                </p>
+                <p>
+                    <i class="fas fa-envelope"></i>
+                    info@luxuryhotel.com
+                </p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+            <p>© 2026 Luxury Hotel. All Rights Reserved</p>
+        </div>
+    </footer>
+
+    <!-- ============================================= -->
+    <!-- JAVASCRIPT -->
+    <!-- ============================================= -->
+    <script>
+        // ===== TOGGLE MENU (Mobile) =====
+        function toggleMenu() {
+            const menu = document.getElementById('navMenu');
+            menu.classList.toggle('show');
+        }
+
+        // ===== TOGGLE DARK MODE =====
+        function toggleTheme() {
+            document.body.classList.toggle('dark-mode');
+            const btn = document.getElementById('themeToggle');
+            if (document.body.classList.contains('dark-mode')) {
+                btn.textContent = '☀️';
+                localStorage.setItem('theme', 'dark');
+            } else {
+                btn.textContent = '🌙';
+                localStorage.setItem('theme', 'light');
+            }
+        }
+
+        // Load saved theme
+        if (localStorage.getItem('theme') === 'dark') {
+            document.body.classList.add('dark-mode');
+            document.getElementById('themeToggle').textContent = '☀️';
+        }
+
+        // ===== TOAST NOTIFICATION =====
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.className = 'toast show ' + type;
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // ===== BOOK POOL =====
+        function bookPool(e) {
+            e.preventDefault();
+            const name = document.getElementById('bookName').value;
+            const packageType = document.getElementById('bookPackage').value;
+            const date = document.getElementById('bookDate').value;
+            const time = document.getElementById('bookTime').value;
+
+            if (!packageType) {
+                showToast('⚠️ Please select a package!', 'error');
+                return;
+            }
+
+            showToast(`✅ Thank you ${name}! Your pool booking (${packageType}) is confirmed for ${date} at ${time}`, 'success');
+
+            // Reset form
+            e.target.reset();
+
+            // Set default date to tomorrow
+            const tomorrow = new Date();
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            document.getElementById('bookDate').value = tomorrow.toISOString().split('T')[0];
+        }
+
+        // ===== SET DEFAULT DATE =====
+        const tomorrow = new Date();
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        document.getElementById('bookDate').value = tomorrow.toISOString().split('T')[0];
+
+        // ===== CLOSE MENU ON LINK CLICK (Mobile) =====
+        document.querySelectorAll('#navMenu a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('navMenu').classList.remove('show');
+            });
+        });
+
+        // ===== SMOOTH SCROLL =====
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        console.log('✅ Luxury Pool page loaded successfully!');
+    </script>
+
+</body>
+</html>

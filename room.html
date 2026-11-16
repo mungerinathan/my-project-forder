@@ -1,0 +1,1285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Luxury Hotel | Our Rooms</title>
+    <meta name="description" content="Explore our luxurious rooms and suites at Luxury Hotel. Find the perfect accommodation for your stay." />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏨</text></svg>" />
+    <!-- Font Awesome 6 (free) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+        /* ----- RESET & BASE ----- */
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #c8a46e;
+            --primary-dark: #b08a4e;
+            --gold: #d4af37;
+            --dark: #1a1a2e;
+            --darker: #0f0f1a;
+            --light: #f8f9fa;
+            --text-dark: #2d2d3f;
+            --text-light: #6c757d;
+            --white: #ffffff;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 20px 40px rgba(0, 0, 0, 0.15);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --border-radius: 20px;
+            --container-max: 1200px;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--text-dark);
+            background: #fafafa;
+            line-height: 1.6;
+            padding-top: 80px;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        ul {
+            list-style: none;
+        }
+
+        .container {
+            max-width: var(--container-max);
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            border: 2px solid transparent;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-primary {
+            background: var(--gold);
+            color: var(--white);
+            border-color: var(--gold);
+        }
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            border-color: var(--primary-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--dark);
+            border-color: var(--dark);
+        }
+        .btn-outline:hover {
+            background: var(--gold);
+            border-color: var(--gold);
+            color: var(--white);
+            transform: translateY(-3px);
+        }
+
+        .btn-sm {
+            padding: 8px 20px;
+            font-size: 0.85rem;
+        }
+
+        /* ----- HEADER / NAV (CLEAN & MODERN) ----- */
+        .site-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(26, 26, 46, 0.95);
+            backdrop-filter: blur(12px);
+            padding: 12px 0;
+            box-shadow: 0 2px 25px rgba(0, 0, 0, 0.25);
+            transition: var(--transition);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--gold);
+        }
+        .logo i {
+            font-size: 2rem;
+        }
+
+        .navbar ul {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .navbar ul li a {
+            color: var(--white);
+            padding: 10px 18px;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .navbar ul li a:hover,
+        .navbar ul li a.active {
+            color: var(--gold);
+            background: rgba(212, 175, 55, 0.1);
+        }
+
+        .navbar ul li a.active {
+            position: relative;
+        }
+        .navbar ul li a.active::after {
+            content: '';
+            position: absolute;
+            bottom: 4px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 2px;
+            background: var(--gold);
+            border-radius: 2px;
+        }
+
+        .btn-login {
+            background: transparent !important;
+            color: var(--gold) !important;
+            border: 2px solid var(--gold) !important;
+            padding: 6px 22px !important;
+            border-radius: 50px !important;
+        }
+        .btn-login:hover {
+            background: var(--gold) !important;
+            color: var(--white) !important;
+        }
+
+        .btn-book-nav {
+            background: var(--gold) !important;
+            color: var(--white) !important;
+            padding: 6px 22px !important;
+            border-radius: 50px !important;
+            border: 2px solid var(--gold) !important;
+        }
+        .btn-book-nav:hover {
+            background: var(--primary-dark) !important;
+            border-color: var(--primary-dark) !important;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.35);
+        }
+
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--white);
+            font-size: 1.8rem;
+            cursor: pointer;
+            padding: 5px;
+            transition: var(--transition);
+        }
+        .mobile-menu-toggle:hover {
+            color: var(--gold);
+        }
+
+        /* ----- PAGE HERO ----- */
+        .page-hero {
+            padding: 80px 0 60px;
+            background: linear-gradient(135deg, var(--dark) 0%, #2d2d4a 100%);
+            color: var(--white);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400"><rect width="400" height="400" fill="%231a1a2e"/><circle cx="200" cy="200" r="180" fill="%23c8a46e" opacity="0.08"/><circle cx="200" cy="200" r="120" fill="%23d4af37" opacity="0.05"/></svg>');
+            background-size: cover;
+            opacity: 0.6;
+        }
+
+        .page-hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .page-hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 15px;
+        }
+        .page-hero h1 span {
+            color: var(--gold);
+        }
+        .page-hero p {
+            font-size: 1.2rem;
+            opacity: 0.8;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .breadcrumb {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+        .breadcrumb a {
+            color: var(--gold);
+        }
+        .breadcrumb a:hover {
+            color: var(--white);
+        }
+
+        /* ----- FILTER SECTION ----- */
+        .filter-section {
+            padding: 40px 0 30px;
+            background: var(--white);
+            border-bottom: 1px solid #e9ecef;
+            position: sticky;
+            top: 80px;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .filter-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .filter-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .filter-group label {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--text-dark);
+            white-space: nowrap;
+        }
+        .filter-group select {
+            padding: 10px 16px;
+            border: 2px solid #e9ecef;
+            border-radius: 12px;
+            font-size: 0.95rem;
+            transition: var(--transition);
+            background: var(--white);
+            color: var(--text-dark);
+            min-width: 150px;
+        }
+        .filter-group select:focus {
+            outline: none;
+            border-color: var(--gold);
+            box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.15);
+        }
+
+        .filter-results {
+            text-align: center;
+            padding: 10px 0;
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+        .filter-results strong {
+            color: var(--gold);
+            font-weight: 700;
+        }
+
+        /* ----- ROOMS GRID ----- */
+        .rooms-section {
+            padding: 50px 0 80px;
+            background: var(--light);
+        }
+
+        .rooms-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .room-card {
+            background: var(--white);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .room-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .room-image {
+            height: 260px;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, #c8a46e 0%, #b08a4e 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: rgba(255, 255, 255, 0.3);
+        }
+
+        /* ✅ IZI NI PHOTO Z'IBYAGO (IMAGES) */
+        .room-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .room-image .room-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--gold);
+            color: var(--white);
+            padding: 6px 18px;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            z-index: 2;
+        }
+        .room-image .room-badge.available {
+            background: #28a745;
+        }
+        .room-image .room-badge.booked {
+            background: #dc3545;
+        }
+        .room-image .room-badge.maintenance {
+            background: #ffc107;
+            color: var(--dark);
+        }
+
+        .room-image .room-type-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: rgba(0, 0, 0, 0.6);
+            color: var(--white);
+            padding: 6px 18px;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            z-index: 2;
+            backdrop-filter: blur(5px);
+        }
+
+        .room-image .room-price-badge {
+            position: absolute;
+            bottom: 15px;
+            left: 15px;
+            background: rgba(0, 0, 0, 0.7);
+            color: var(--white);
+            padding: 8px 18px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            z-index: 2;
+            backdrop-filter: blur(5px);
+        }
+        .room-image .room-price-badge span {
+            color: var(--gold);
+        }
+
+        .room-body {
+            padding: 25px 28px 30px;
+        }
+
+        .room-body .room-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 10px;
+        }
+        .room-body h3 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--dark);
+        }
+        .room-body .rating {
+            color: var(--gold);
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .room-body .room-meta {
+            display: flex;
+            gap: 18px;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+        }
+        .room-body .room-meta span {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+        .room-body .room-meta span i {
+            color: var(--gold);
+            margin-right: 5px;
+            width: 18px;
+        }
+
+        .room-body .room-desc {
+            color: var(--text-light);
+            margin-bottom: 15px;
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        .room-body .amenities {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 18px;
+        }
+        .room-body .amenities span {
+            background: var(--light);
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            color: var(--text-light);
+        }
+        .room-body .amenities span i {
+            color: var(--gold);
+            margin-right: 4px;
+        }
+
+        .room-actions {
+            display: flex;
+            gap: 12px;
+        }
+        .room-actions .btn {
+            flex: 1;
+        }
+
+        .btn-book {
+            background: var(--gold);
+            color: var(--white);
+            border: none;
+        }
+        .btn-book:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.3);
+        }
+
+        .btn-details {
+            background: transparent;
+            color: var(--dark);
+            border: 2px solid #e9ecef;
+        }
+        .btn-details:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+            transform: translateY(-2px);
+        }
+
+        /* ----- TOAST ----- */
+        .toast-container {
+            position: fixed;
+            top: 100px;
+            right: 25px;
+            z-index: 9999;
+        }
+
+        .toast {
+            background: var(--white);
+            padding: 16px 28px;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            animation: slideInRight 0.4s ease;
+            font-weight: 500;
+            min-width: 300px;
+        }
+        .toast.success {
+            border-left: 4px solid #28a745;
+            color: #155724;
+        }
+        .toast.error {
+            border-left: 4px solid #dc3545;
+            color: #721c24;
+        }
+        .toast.info {
+            border-left: 4px solid var(--gold);
+            color: var(--text-dark);
+        }
+        .toast i {
+            font-size: 1.4rem;
+        }
+        .toast.success i {
+            color: #28a745;
+        }
+        .toast.error i {
+            color: #dc3545;
+        }
+        .toast.info i {
+            color: var(--gold);
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        @keyframes slideOutRight {
+            from {
+                transform: translateX(0);
+                opacity: 1;
+            }
+            to {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+        }
+
+        /* ----- FOOTER ----- */
+        .footer {
+            background: #111827;
+            color: #fff;
+            padding: 70px 0 0;
+        }
+
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 40px;
+        }
+
+        .footer-box h3,
+        .footer-logo {
+            margin-bottom: 20px;
+            color: #d4af37;
+        }
+        .footer-logo i {
+            margin-right: 8px;
+        }
+        .footer-box p {
+            color: #ccc;
+            line-height: 1.8;
+            margin-bottom: 12px;
+        }
+        .footer-box ul li {
+            margin-bottom: 12px;
+        }
+        .footer-box ul li a {
+            color: #ccc;
+            transition: .3s;
+        }
+        .footer-box ul li a:hover {
+            color: #d4af37;
+            padding-left: 8px;
+        }
+        .footer-box i {
+            color: #d4af37;
+            margin-right: 8px;
+        }
+
+        .social-links {
+            margin-top: 20px;
+        }
+        .social-links a {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 42px;
+            height: 42px;
+            background: #1f2937;
+            color: #fff;
+            border-radius: 50%;
+            margin-right: 10px;
+            transition: .3s;
+        }
+        .social-links a:hover {
+            background: #d4af37;
+            color: #111827;
+            transform: translateY(-5px);
+        }
+
+        .footer-bottom {
+            margin-top: 50px;
+            padding: 20px 0;
+            border-top: 1px solid rgba(255, 255, 255, .1);
+            text-align: center;
+        }
+        .footer-bottom p {
+            color: #aaa;
+            font-size: 15px;
+        }
+
+        /* ----- RESPONSIVE ----- */
+        @media (max-width: 1024px) {
+            .rooms-grid {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding-top: 70px;
+            }
+
+            .mobile-menu-toggle {
+                display: block;
+            }
+
+            .navbar {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--dark);
+                padding: 20px;
+                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+                border-top: 1px solid rgba(255, 255, 255, 0.05);
+            }
+            .navbar.open {
+                display: block;
+            }
+            .navbar ul {
+                flex-direction: column;
+                gap: 5px;
+            }
+            .navbar ul li a {
+                display: block;
+                padding: 12px 20px;
+                text-align: center;
+            }
+            .navbar ul li a.active::after {
+                display: none;
+            }
+
+            .page-hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .filter-section {
+                top: 70px;
+                padding: 20px 0;
+            }
+            .filter-container {
+                flex-direction: column;
+                gap: 10px;
+            }
+            .filter-group {
+                width: 100%;
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .filter-group select {
+                width: 100%;
+                min-width: unset;
+            }
+
+            .rooms-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .room-actions {
+                flex-direction: column;
+            }
+
+            .toast {
+                min-width: auto;
+                max-width: 90%;
+            }
+            .toast-container {
+                right: 15px;
+                left: 15px;
+                top: 90px;
+            }
+
+            .footer {
+                text-align: center;
+            }
+            .social-links {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .page-hero h1 {
+                font-size: 2rem;
+            }
+            .room-body h3 {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ==========================================================
+    HEADER (CLEAN & MODERN)
+    ========================================================== -->
+    <header class="site-header">
+        <div class="container header-container">
+            <div class="logo">
+                <a href="index.html">
+                    <i class="fas fa-hotel"></i>
+                    <span>Luxury Hotel</span>
+                </a>
+            </div>
+
+            <nav class="navbar" id="navbar">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="rooms.html" class="active">Rooms</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="login.html" class="btn-login">Login</a></li>
+                    <li><a href="booking.html" class="btn-book-nav">Book</a></li>
+                </ul>
+            </nav>
+
+            <button class="mobile-menu-toggle" id="mobileToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- ==========================================================
+    PAGE HERO
+    ========================================================== -->
+    <section class="page-hero">
+        <div class="container page-hero-content">
+            <h1>Our <span>Rooms</span></h1>
+            <p>Discover luxury and comfort in every room, designed for an unforgettable stay</p>
+            <div class="breadcrumb">
+                <a href="index.html">Home</a>
+                <span>/</span>
+                <span>Rooms</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================
+    FILTER SECTION
+    ========================================================== -->
+    <section class="filter-section" id="filterSection">
+        <div class="container">
+            <div class="filter-container">
+                <div class="filter-group">
+                    <label for="filterType"><i class="fas fa-tag"></i> Room Type</label>
+                    <select id="filterType">
+                        <option value="all">All Types</option>
+                        <option value="deluxe">Deluxe</option>
+                        <option value="standard">Standard</option>
+                        <option value="suite">Suite</option>
+                        <option value="executive">Executive</option>
+                        <option value="presidential">Presidential</option>
+                        <option value="family">Family</option>
+                        <option value="honeymoon">Honeymoon</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label for="filterPrice"><i class="fas fa-dollar-sign"></i> Max Price</label>
+                    <select id="filterPrice">
+                        <option value="all">All Prices</option>
+                        <option value="100">$100</option>
+                        <option value="200">$200</option>
+                        <option value="300">$300</option>
+                        <option value="400">$400</option>
+                        <option value="500">$500+</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label for="filterGuests"><i class="fas fa-user"></i> Guests</label>
+                    <select id="filterGuests">
+                        <option value="all">Any</option>
+                        <option value="1">1 Guest</option>
+                        <option value="2">2 Guests</option>
+                        <option value="3">3 Guests</option>
+                        <option value="4">4+ Guests</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label for="filterStatus"><i class="fas fa-circle"></i> Status</label>
+                    <select id="filterStatus">
+                        <option value="all">All</option>
+                        <option value="available">Available</option>
+                        <option value="booked">Booked</option>
+                        <option value="maintenance">Maintenance</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <button class="btn btn-primary" id="resetFilters">
+                        <i class="fas fa-undo"></i> Reset
+                    </button>
+                </div>
+            </div>
+
+            <div class="filter-results">
+                Showing <strong id="visibleCount">0</strong> rooms
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================
+    ROOMS SECTION
+    ========================================================== -->
+    <section class="rooms-section">
+        <div class="container">
+            <div class="rooms-grid" id="roomsGrid">
+                <!-- Dynamically loaded by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================
+    FOOTER
+    ========================================================== -->
+    <footer class="footer">
+        <div class="container footer-container">
+            <div class="footer-box">
+                <h2 class="footer-logo">
+                    <i class="fas fa-hotel"></i> Luxury Hotel
+                </h2>
+                <p>
+                    Experience luxury, comfort, and world-class hospitality.
+                    We provide premium rooms and exceptional services to make
+                    every stay unforgettable.
+                </p>
+            </div>
+
+            <div class="footer-box">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="rooms.html">Rooms</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="booking.html">Booking</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-box">
+                <h3>Services</h3>
+                <ul>
+                    <li>Luxury Rooms</li>
+                    <li>Restaurant</li>
+                    <li>Spa & Wellness</li>
+                    <li>Swimming Pool</li>
+                    <li>Airport Pickup</li>
+                </ul>
+            </div>
+
+            <div class="footer-box">
+                <h3>Contact Us</h3>
+                <p><i class="fas fa-map-marker-alt"></i> Kigali, Rwanda</p>
+                <p><i class="fas fa-phone"></i> +250 788 000 000</p>
+                <p><i class="fas fa-envelope"></i> info@luxuryhotel.com</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 Luxury Hotel. All Rights Reserved | Designed by Nathan</p>
+        </div>
+    </footer>
+
+    <!-- ==========================================================
+    JAVASCRIPT
+    ========================================================== -->
+    <script>
+        // ============================================================
+        // ROOMS DATA
+        // ============================================================
+        const roomsData = [{
+            id: 1,
+            name: 'Deluxe Room',
+            type: 'deluxe',
+            price: 200,
+            capacity: 2,
+            rating: 4.8,
+            description: 'Luxurious room with ocean view, private balcony, and premium amenities for the ultimate comfort.',
+            amenities: ['WiFi', 'TV', 'Mini Bar', 'Safe', 'Air Conditioning', 'Balcony'],
+            status: 'available',
+            // ✅ IZI NI PHOTO (shyiramo izina ry'ifoto yawe)
+            image: '130.jfif'
+        }, {
+            id: 2,
+            name: 'Standard Room',
+            type: 'standard',
+            price: 100,
+            capacity: 2,
+            rating: 4.5,
+            description: 'Comfortable room with essential amenities and beautiful city views, perfect for business travelers.',
+            amenities: ['WiFi', 'TV', 'Air Conditioning'],
+            status: 'available',
+            image: '20.jfif'
+        }, {
+            id: 3,
+            name: 'Executive Suite',
+            type: 'executive',
+            price: 350,
+            capacity: 4,
+            rating: 4.9,
+            description: 'Spacious suite with separate living area, workspace, and premium business amenities.',
+            amenities: ['WiFi', 'TV', 'Mini Bar', 'Safe', 'Air Conditioning', 'Workspace'],
+            status: 'available',
+            image: '30.jfif'
+        }, {
+            id: 4,
+            name: 'Presidential Suite',
+            type: 'presidential',
+            price: 500,
+            capacity: 6,
+            rating: 5.0,
+            description: 'Ultimate luxury with panoramic views, private jacuzzi, and butler service for VIP guests.',
+            amenities: ['WiFi', 'TV', 'Mini Bar', 'Safe', 'Air Conditioning', 'Jacuzzi', 'Kitchen'],
+            status: 'booked',
+            image: '40.jfif'
+        }, {
+            id: 5,
+            name: 'Family Suite',
+            type: 'family',
+            price: 280,
+            capacity: 4,
+            rating: 4.7,
+            description: 'Perfect for families with connecting rooms, kid-friendly amenities, and plenty of space.',
+            amenities: ['WiFi', 'TV', 'Mini Bar', 'Air Conditioning', 'Family Games'],
+            status: 'available',
+            image: '50.jfif'
+        }, {
+            id: 6,
+            name: 'Honeymoon Suite',
+            type: 'honeymoon',
+            price: 320,
+            capacity: 2,
+            rating: 4.9,
+            description: 'Romantic suite with private terrace, jacuzzi, and breathtaking sunset views for couples.',
+            amenities: ['WiFi', 'TV', 'Mini Bar', 'Jacuzzi', 'Air Conditioning', 'Terrace'],
+            status: 'available',
+            image: '60.WEBP'
+        }, {
+            id: 7,
+            name: 'Luxury Suite',
+            type: 'suite',
+            price: 400,
+            capacity: 4,
+            rating: 4.8,
+            description: 'Elegant suite with premium furnishings, separate bedroom, and luxury bathroom facilities.',
+            amenities: ['WiFi', 'TV', 'Mini Bar', 'Safe', 'Air Conditioning', 'Bathtub'],
+            status: 'maintenance',
+            image: '70.jpg'
+        }, {
+            id: 8,
+            name: 'Superior Room',
+            type: 'standard',
+            price: 150,
+            capacity: 2,
+            rating: 4.6,
+            description: 'Superior room with upgraded amenities and comfortable bedding for a restful stay.',
+            amenities: ['WiFi', 'TV', 'Air Conditioning', 'Coffee Maker'],
+            status: 'available',
+            image: '80.jpg'
+        }, {
+            id: 9,
+            name: 'Ocean View Suite',
+            type: 'suite',
+            price: 450,
+            capacity: 4,
+            rating: 4.9,
+            description: 'Stunning suite with panoramic ocean views, private balcony, and luxury amenities.',
+            amenities: ['WiFi', 'TV', 'Mini Bar', 'Safe', 'Air Conditioning', 'Ocean View'],
+            status: 'booked',
+            image: '90.jfif'
+        }, {
+            id: 10,
+            name: 'Executive Room',
+            type: 'executive',
+            price: 250,
+            capacity: 2,
+            rating: 4.7,
+            description: 'Business-friendly room with work desk, high-speed internet, and executive lounge access.',
+            amenities: ['WiFi', 'TV', 'Mini Bar', 'Safe', 'Air Conditioning', 'Work Desk'],
+            status: 'available',
+            image: '100.jpg'
+        }, {
+            id: 11,
+            name: 'Garden Villa',
+            type: 'suite',
+            price: 380,
+            capacity: 4,
+            rating: 4.8,
+            description: 'Beautiful villa with private garden, outdoor seating, and luxury amenities for relaxation.',
+            amenities: ['WiFi', 'TV', 'Mini Bar', 'Safe', 'Air Conditioning', 'Garden'],
+            status: 'available',
+            image: '110.jfif'
+        }, {
+            id: 12,
+            name: 'Penthouse Suite',
+            type: 'presidential',
+            price: 600,
+            capacity: 6,
+            rating: 5.0,
+            description: 'Exclusive penthouse with rooftop terrace, private pool, and 360-degree city views.',
+            amenities: ['WiFi', 'TV', 'Mini Bar', 'Safe', 'Air Conditioning', 'Private Pool', 'Rooftop'],
+            status: 'available',
+            image: '120.jpg'
+        }];
+
+        // ============================================================
+        // RENDER ROOMS
+        // ============================================================
+        function renderRooms(rooms) {
+            const grid = document.getElementById('roomsGrid');
+            grid.innerHTML = '';
+
+            if (rooms.length === 0) {
+                grid.innerHTML = `
+                            <div style="grid-column: 1/-1; text-align: center; padding: 60px 20px;">
+                                <i class="fas fa-bed" style="font-size: 4rem; color: var(--gold); margin-bottom: 20px; display: block;"></i>
+                                <h3 style="font-size: 1.5rem; color: var(--dark);">No Rooms Found</h3>
+                                <p style="color: var(--text-light); margin-top: 10px;">Try adjusting your filters to find available rooms.</p>
+                                <button class="btn btn-primary" onclick="resetFilters()" style="margin-top: 20px;">
+                                    <i class="fas fa-undo"></i> Reset Filters
+                                </button>
+                            </div>
+                        `;
+                document.getElementById('visibleCount').textContent = '0';
+                return;
+            }
+
+            rooms.forEach(room => {
+                const card = document.createElement('article');
+                card.className = 'room-card';
+
+                const statusLabels = {
+                    available: 'Available',
+                    booked: 'Booked',
+                    maintenance: 'Maintenance'
+                };
+                const statusClasses = {
+                    available: 'available',
+                    booked: 'booked',
+                    maintenance: 'maintenance'
+                };
+                const typeDisplay = room.type.charAt(0).toUpperCase() + room.type.slice(1);
+                const stars = '★'.repeat(Math.floor(room.rating)) + '☆'.repeat(5 - Math.floor(room.rating));
+
+                card.innerHTML = `
+                            <div class="room-image">
+                                <!-- ✅ HANO NI HO IFOTO IBAHORA -->
+                                <img src="${room.image || 'default-room.jpg'}" alt="${room.name}" loading="lazy" />
+                                <span class="room-badge ${statusClasses[room.status]}">${statusLabels[room.status]}</span>
+                                <span class="room-type-badge">${typeDisplay}</span>
+                                <span class="room-price-badge">$${room.price} <span>/ night</span></span>
+                            </div>
+                            <div class="room-body">
+                                <div class="room-header">
+                                    <h3>${room.name}</h3>
+                                    <span class="rating">${stars} ${room.rating}</span>
+                                </div>
+                                <div class="room-meta">
+                                    <span><i class="fas fa-user"></i> ${room.capacity} Guests</span>
+                                    <span><i class="fas fa-tag"></i> ${typeDisplay}</span>
+                                    <span><i class="fas fa-dollar-sign"></i> $${room.price}/night</span>
+                                </div>
+                                <p class="room-desc">${room.description}</p>
+                                <div class="amenities">
+                                    ${room.amenities.map(a => `<span><i class="fas fa-check"></i> ${a}</span>`).join('')}
+                                </div>
+                                <div class="room-actions">
+                                    ${room.status === 'available' 
+                                        ? `<a href="booking.html?room=${room.id}" class="btn btn-book">Book Now</a>`
+                                        : `<button class="btn btn-book" disabled style="opacity:0.5;cursor:not-allowed;">${room.status === 'booked' ? 'Booked' : 'Unavailable'}</button>`
+                                    }
+                                    <a href="room-details.html?id=${room.id}" class="btn btn-details">View Details</a>
+                                </div>
+                            </div>
+                        `;
+                grid.appendChild(card);
+            });
+
+            document.getElementById('visibleCount').textContent = rooms.length;
+        }
+
+        // ============================================================
+        // FILTER FUNCTIONALITY
+        // ============================================================
+        function filterRooms() {
+            const typeFilter = document.getElementById('filterType').value;
+            const priceFilter = document.getElementById('filterPrice').value;
+            const guestsFilter = document.getElementById('filterGuests').value;
+            const statusFilter = document.getElementById('filterStatus').value;
+
+            let filtered = roomsData.filter(room => {
+                if (typeFilter !== 'all' && room.type !== typeFilter) return false;
+
+                if (priceFilter !== 'all') {
+                    const maxPrice = parseInt(priceFilter);
+                    if (priceFilter === '500') {
+                        if (room.price < 500) return false;
+                    } else {
+                        if (room.price > maxPrice) return false;
+                    }
+                }
+
+                if (guestsFilter !== 'all') {
+                    const guestCount = parseInt(guestsFilter);
+                    if (guestsFilter === '4') {
+                        if (room.capacity < 4) return false;
+                    } else {
+                        if (room.capacity !== guestCount) return false;
+                    }
+                }
+
+                if (statusFilter !== 'all' && room.status !== statusFilter) return false;
+                return true;
+            });
+
+            renderRooms(filtered);
+        }
+
+        function resetFilters() {
+            document.getElementById('filterType').value = 'all';
+            document.getElementById('filterPrice').value = 'all';
+            document.getElementById('filterGuests').value = 'all';
+            document.getElementById('filterStatus').value = 'all';
+            filterRooms();
+            showToast('Filters reset successfully', 'info');
+        }
+
+        // ============================================================
+        // TOAST NOTIFICATION
+        // ============================================================
+        function showToast(message, type = 'info') {
+            const container = document.querySelector('.toast-container') || createToastContainer();
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            const icons = { success: 'fa-check-circle', error: 'fa-exclamation-circle', info: 'fa-info-circle' };
+            toast.innerHTML = `<i class="fas ${icons[type] || icons.info}"></i><span>${message}</span>`;
+            container.appendChild(toast);
+            setTimeout(() => {
+                toast.style.animation = 'slideOutRight 0.4s ease forwards';
+                setTimeout(() => toast.remove(), 400);
+            }, 4000);
+        }
+
+        function createToastContainer() {
+            const container = document.createElement('div');
+            container.className = 'toast-container';
+            document.body.appendChild(container);
+            return container;
+        }
+
+        // ============================================================
+        // MOBILE MENU TOGGLE
+        // ============================================================
+        const mobileToggle = document.getElementById('mobileToggle');
+        const navbar = document.getElementById('navbar');
+
+        mobileToggle.addEventListener('click', function() {
+            navbar.classList.toggle('open');
+            const icon = this.querySelector('i');
+            icon.className = navbar.classList.contains('open') ? 'fas fa-times' : 'fas fa-bars';
+        });
+
+        document.querySelectorAll('.navbar ul li a').forEach(link => {
+            link.addEventListener('click', function() {
+                navbar.classList.remove('open');
+                mobileToggle.querySelector('i').className = 'fas fa-bars';
+            });
+        });
+
+        // ============================================================
+        // EVENT LISTENERS
+        // ============================================================
+        document.getElementById('filterType').addEventListener('change', filterRooms);
+        document.getElementById('filterPrice').addEventListener('change', filterRooms);
+        document.getElementById('filterGuests').addEventListener('change', filterRooms);
+        document.getElementById('filterStatus').addEventListener('change', filterRooms);
+        document.getElementById('resetFilters').addEventListener('click', resetFilters);
+
+        // ============================================================
+        // INITIALIZATION
+        // ============================================================
+        (function initFromURL() {
+            const params = new URLSearchParams(window.location.search);
+            const type = params.get('type');
+            const guests = params.get('guests');
+
+            if (type) {
+                const typeSelect = document.getElementById('filterType');
+                const matched = Array.from(typeSelect.options).find(opt => opt.value.toLowerCase() === type.toLowerCase());
+                if (matched) typeSelect.value = matched.value;
+            }
+            if (guests) {
+                const guestSelect = document.getElementById('filterGuests');
+                const guestNum = parseInt(guests);
+                if (guestNum >= 4) guestSelect.value = '4';
+                else if (guestNum > 0) guestSelect.value = String(guestNum);
+            }
+            filterRooms();
+        })();
+
+        // ============================================================
+        // CONSOLE WELCOME
+        // ============================================================
+        console.log('%c🏨 Luxury Hotel - Rooms', 'font-size:24px; font-weight:bold; color:#c8a46e;');
+        console.log(`%c${roomsData.length} rooms available`, 'font-size:14px; color:#6c757d;');
+        console.log('%c© 2026 All Rights Reserved', 'font-size:12px; color:#adb5bd;');
+    </script>
+</body>
+</html>

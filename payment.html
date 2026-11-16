@@ -1,0 +1,2049 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment - Luxury Hotel</title>
+    <meta name="description" content="Secure payment for your hotel booking. Pay with cash, mobile money, or credit card.">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏨</text></svg>">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ============================================================
+                   RESET & BASE STYLES
+                   ============================================================ */
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #c8a46e;
+            --primary-dark: #b08a4e;
+            --primary-light: #d4b88c;
+            --dark: #1a1a2e;
+            --darker: #0f0f1a;
+            --light: #f8f9fa;
+            --gold: #d4af37;
+            --text-dark: #2d2d3f;
+            --text-light: #6c757d;
+            --white: #ffffff;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 20px 40px rgba(0, 0, 0, 0.15);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --border-radius: 20px;
+            --container-max: 1200px;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--text-dark);
+            background: #f0f2f5;
+            line-height: 1.6;
+            padding-top: 80px;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition);
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        .container {
+            max-width: var(--container-max);
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* ============================================================
+                   BUTTONS
+                   ============================================================ */
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            border: 2px solid transparent;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-primary {
+            background: var(--gold);
+            color: var(--white);
+            border-color: var(--gold);
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            border-color: var(--primary-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--dark);
+            border-color: var(--dark);
+        }
+
+        .btn-outline:hover {
+            background: var(--gold);
+            border-color: var(--gold);
+            color: var(--white);
+            transform: translateY(-3px);
+        }
+
+        .btn-success {
+            background: #28a745;
+            color: var(--white);
+            border-color: #28a745;
+        }
+
+        .btn-success:hover {
+            background: #218838;
+            border-color: #218838;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(40, 167, 69, 0.3);
+        }
+
+        .btn-danger {
+            background: #dc3545;
+            color: var(--white);
+            border-color: #dc3545;
+        }
+
+        .btn-danger:hover {
+            background: #c82333;
+            border-color: #c82333;
+            transform: translateY(-3px);
+        }
+
+        .btn-block {
+            width: 100%;
+            padding: 16px;
+            font-size: 1.05rem;
+        }
+
+        .btn-sm {
+            padding: 8px 20px;
+            font-size: 0.85rem;
+        }
+
+        /* ============================================================
+                   HEADER / NAVIGATION
+                   ============================================================ */
+        .site-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(26, 26, 46, 0.95);
+            backdrop-filter: blur(12px);
+            padding: 12px 0;
+            box-shadow: 0 2px 25px rgba(0, 0, 0, 0.25);
+            transition: var(--transition);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--gold);
+        }
+
+        .logo i {
+            font-size: 2rem;
+        }
+
+        .main-nav .nav-list {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-link {
+            color: var(--white);
+            padding: 10px 18px;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--gold);
+            background: rgba(212, 175, 55, 0.1);
+        }
+
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: 4px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 2px;
+            background: var(--gold);
+            border-radius: 2px;
+        }
+
+        .nav-cta {
+            background: var(--gold);
+            color: var(--white) !important;
+            padding: 10px 28px !important;
+            border-radius: 50px !important;
+        }
+
+        .nav-cta:hover {
+            background: var(--primary-dark) !important;
+            color: var(--white) !important;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.35);
+        }
+
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--white);
+            font-size: 1.8rem;
+            cursor: pointer;
+            padding: 5px;
+            transition: var(--transition);
+        }
+
+        .mobile-menu-toggle:hover {
+            color: var(--gold);
+        }
+
+        /* ============================================================
+                   PAGE HERO
+                   ============================================================ */
+        .page-hero {
+            padding: 60px 0 40px;
+            background: linear-gradient(135deg, var(--dark) 0%, #2d2d4a 100%);
+            color: var(--white);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400"><rect width="400" height="400" fill="%231a1a2e"/><circle cx="200" cy="200" r="180" fill="%23c8a46e" opacity="0.08"/><circle cx="200" cy="200" r="120" fill="%23d4af37" opacity="0.05"/></svg>');
+            background-size: cover;
+            opacity: 0.6;
+        }
+
+        .page-hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .page-hero h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+
+        .page-hero h1 span {
+            color: var(--gold);
+        }
+
+        .page-hero p {
+            font-size: 1.1rem;
+            opacity: 0.8;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .breadcrumb {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 15px;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .breadcrumb a {
+            color: var(--gold);
+        }
+
+        .breadcrumb a:hover {
+            color: var(--white);
+        }
+
+        /* ============================================================
+                   PAYMENT SECTION
+                   ============================================================ */
+        .payment-section {
+            padding: 40px 0 80px;
+        }
+
+        .payment-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 30px;
+        }
+
+        /* ============================================================
+                   PAYMENT FORM
+                   ============================================================ */
+        .payment-card {
+            background: var(--white);
+            border-radius: var(--border-radius);
+            padding: 35px;
+            box-shadow: var(--shadow);
+        }
+
+        .payment-card h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 8px;
+        }
+
+        .payment-card .subtitle {
+            color: var(--text-light);
+            margin-bottom: 25px;
+        }
+
+        .payment-card .payment-methods-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .payment-method-option {
+            border: 2px solid #e9ecef;
+            border-radius: 12px;
+            padding: 20px 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .payment-method-option:hover {
+            border-color: var(--primary-light);
+            transform: translateY(-2px);
+        }
+
+        .payment-method-option.selected {
+            border-color: var(--gold);
+            background: rgba(212, 175, 55, 0.08);
+            box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.1);
+        }
+
+        .payment-method-option.selected::after {
+            content: '✓';
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: var(--gold);
+            color: var(--white);
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.9rem;
+            box-shadow: 0 3px 10px rgba(212, 175, 55, 0.3);
+        }
+
+        .payment-method-option i {
+            font-size: 2.5rem;
+            color: var(--text-light);
+            display: block;
+            margin-bottom: 10px;
+            transition: var(--transition);
+        }
+
+        .payment-method-option.selected i {
+            color: var(--gold);
+        }
+
+        .payment-method-option .method-name {
+            font-weight: 600;
+            color: var(--text-dark);
+            font-size: 0.95rem;
+        }
+
+        .payment-method-option .method-desc {
+            font-size: 0.8rem;
+            color: var(--text-light);
+            margin-top: 4px;
+        }
+
+        /* ============================================================
+                   PAYMENT FORM DETAILS
+                   ============================================================ */
+        .payment-details {
+            display: none;
+            animation: fadeIn 0.4s ease;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 2px solid #e9ecef;
+        }
+
+        .payment-details.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--text-dark);
+            margin-bottom: 6px;
+        }
+
+        .form-group label .required {
+            color: #dc3545;
+        }
+
+        .form-group .input-wrapper {
+            position: relative;
+        }
+
+        .form-group .input-wrapper i {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-light);
+            font-size: 1.1rem;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 16px 12px 48px;
+            border: 2px solid #e9ecef;
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: var(--transition);
+            background: var(--white);
+            color: var(--text-dark);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--gold);
+            box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.15);
+        }
+
+        .form-control::placeholder {
+            color: #adb5bd;
+        }
+
+        .form-control.error {
+            border-color: #dc3545;
+        }
+
+        .form-control.success {
+            border-color: #28a745;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .form-row-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 15px;
+        }
+
+        textarea.form-control {
+            padding: 12px 16px;
+            resize: vertical;
+            min-height: 80px;
+            font-family: inherit;
+        }
+
+        /* ============================================================
+                   BILLING SUMMARY
+                   ============================================================ */
+        .summary-card {
+            background: var(--white);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 100px;
+        }
+
+        .summary-card .summary-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #e9ecef;
+            margin-bottom: 20px;
+        }
+
+        .summary-card .summary-header i {
+            font-size: 2rem;
+            color: var(--gold);
+        }
+
+        .summary-card .summary-header h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--dark);
+        }
+
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .summary-item:last-child {
+            border-bottom: none;
+        }
+
+        .summary-item .label {
+            color: var(--text-light);
+        }
+
+        .summary-item .value {
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .summary-item .value.price {
+            color: var(--gold);
+        }
+
+        .summary-total {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 2px solid var(--gold);
+        }
+
+        .summary-total .total-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+
+        .summary-total .total-row .total-amount {
+            color: var(--gold);
+            font-size: 1.8rem;
+        }
+
+        .summary-total .tax-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            color: var(--text-light);
+            margin-top: 5px;
+        }
+
+        .payment-status-badge {
+            display: inline-block;
+            padding: 4px 16px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .payment-status-badge.completed {
+            background: rgba(40, 167, 69, 0.15);
+            color: #28a745;
+        }
+
+        .payment-status-badge.pending {
+            background: rgba(255, 193, 7, 0.15);
+            color: #ffc107;
+        }
+
+        .payment-status-badge.failed {
+            background: rgba(220, 53, 69, 0.15);
+            color: #dc3545;
+        }
+
+        .payment-status-badge.refunded {
+            background: rgba(108, 117, 125, 0.15);
+            color: #6c757d;
+        }
+
+        /* ============================================================
+                   PAYMENT HISTORY
+                   ============================================================ */
+        .history-section {
+            margin-top: 40px;
+            padding-top: 40px;
+            border-top: 2px solid #e9ecef;
+        }
+
+        .history-section h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 20px;
+        }
+
+        .history-table-wrapper {
+            overflow-x: auto;
+        }
+
+        .history-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .history-table thead th {
+            text-align: left;
+            padding: 12px 15px;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-light);
+            font-weight: 600;
+            border-bottom: 2px solid #e9ecef;
+        }
+
+        .history-table tbody td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #f0f0f0;
+            font-size: 0.9rem;
+        }
+
+        .history-table tbody tr:hover {
+            background: #f8f9fa;
+        }
+
+        /* ============================================================
+                   TOAST NOTIFICATION
+                   ============================================================ */
+        .toast-container {
+            position: fixed;
+            top: 100px;
+            right: 25px;
+            z-index: 9999;
+        }
+
+        .toast {
+            background: var(--white);
+            padding: 16px 28px;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            animation: slideInRight 0.4s ease;
+            font-weight: 500;
+            font-family: 'Segoe UI', sans-serif;
+            min-width: 300px;
+        }
+
+        .toast.success {
+            border-left: 4px solid #28a745;
+            color: #155724;
+        }
+
+        .toast.error {
+            border-left: 4px solid #dc3545;
+            color: #721c24;
+        }
+
+        .toast.info {
+            border-left: 4px solid var(--gold);
+            color: var(--text-dark);
+        }
+
+        .toast i {
+            font-size: 1.4rem;
+        }
+
+        .toast.success i {
+            color: #28a745;
+        }
+        .toast.error i {
+            color: #dc3545;
+        }
+        .toast.info i {
+            color: var(--gold);
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideOutRight {
+            from {
+                transform: translateX(0);
+                opacity: 1;
+            }
+            to {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+        }
+
+        /* ============================================================
+                   CONFIRMATION MODAL
+                   ============================================================ */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(8px);
+            z-index: 99999;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-box {
+            background: var(--white);
+            border-radius: var(--border-radius);
+            padding: 50px 45px;
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+            animation: fadeInUp 0.5s ease;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .modal-box .success-icon {
+            font-size: 5rem;
+            color: #28a745;
+            margin-bottom: 20px;
+        }
+
+        .modal-box .error-icon {
+            font-size: 5rem;
+            color: #dc3545;
+            margin-bottom: 20px;
+        }
+
+        .modal-box h2 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 10px;
+        }
+
+        .modal-box p {
+            color: var(--text-light);
+            margin-bottom: 20px;
+        }
+
+        .modal-box .transaction-details {
+            background: var(--light);
+            padding: 15px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .modal-box .transaction-details .detail-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 5px 0;
+            font-size: 0.9rem;
+        }
+
+        .modal-box .transaction-details .detail-row .label {
+            color: var(--text-light);
+        }
+
+        .modal-box .transaction-details .detail-row .value {
+            font-weight: 600;
+        }
+
+        .modal-box .modal-actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .modal-box .modal-actions .btn {
+            flex: 1;
+            min-width: 120px;
+        }
+
+        /* ============================================================
+                   FOOTER
+                   ============================================================ */
+        .site-footer {
+            background: var(--darker);
+            color: rgba(255, 255, 255, 0.8);
+            padding: 40px 0 25px;
+            margin-top: 40px;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .footer-bottom p {
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 0.95rem;
+        }
+
+        /* ============================================================
+                   RESPONSIVE DESIGN
+                   ============================================================ */
+        @media (max-width: 1024px) {
+            .payment-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .summary-card {
+                position: static;
+            }
+
+            .payment-card .payment-methods-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding-top: 70px;
+            }
+
+            .mobile-menu-toggle {
+                display: block;
+            }
+
+            .main-nav {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--dark);
+                padding: 20px;
+                display: none;
+                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+                border-top: 1px solid rgba(255, 255, 255, 0.05);
+            }
+
+            .main-nav.open {
+                display: block;
+            }
+
+            .main-nav .nav-list {
+                flex-direction: column;
+                gap: 5px;
+            }
+
+            .nav-link {
+                display: block;
+                padding: 12px 20px;
+                width: 100%;
+                text-align: center;
+            }
+
+            .nav-cta {
+                margin-top: 10px;
+            }
+
+            .page-hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .payment-card {
+                padding: 20px;
+            }
+
+            .payment-card .payment-methods-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .form-row-3 {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .modal-box {
+                padding: 30px 20px;
+            }
+
+            .modal-box .modal-actions {
+                flex-direction: column;
+            }
+
+            .modal-box .modal-actions .btn {
+                min-width: unset;
+            }
+
+            .toast {
+                min-width: auto;
+                max-width: 90%;
+                padding: 14px 20px;
+                font-size: 0.95rem;
+            }
+
+            .toast-container {
+                right: 15px;
+                left: 15px;
+                top: 90px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .page-hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .payment-card {
+                padding: 15px;
+            }
+
+            .form-row-3 {
+                grid-template-columns: 1fr;
+            }
+
+            .history-table thead th,
+            .history-table tbody td {
+                padding: 8px 10px;
+                font-size: 0.8rem;
+            }
+        }
+        /*=========================
+FOOTER
+=========================*/
+
+.footer{
+    background:#111827;
+    color:#fff;
+    padding:70px 0 0;
+}
+
+.footer-container{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+    gap:40px;
+}
+
+.footer-box h3,
+.footer-logo{
+    margin-bottom:20px;
+    color:#d4af37;
+}
+
+.footer-logo i{
+    margin-right:8px;
+}
+
+.footer-box p{
+    color:#ccc;
+    line-height:1.8;
+    margin-bottom:12px;
+}
+
+.footer-box ul{
+    list-style:none;
+}
+
+.footer-box ul li{
+    margin-bottom:12px;
+}
+
+.footer-box ul li a{
+    color:#ccc;
+    transition:.3s;
+}
+
+.footer-box ul li a:hover{
+    color:#d4af37;
+    padding-left:8px;
+}
+
+.footer-box i{
+    color:#d4af37;
+    margin-right:8px;
+}
+
+.social-links{
+    margin-top:20px;
+}
+
+.social-links a{
+    display:inline-flex;
+    justify-content:center;
+    align-items:center;
+    width:42px;
+    height:42px;
+    background:#1f2937;
+    color:#fff;
+    border-radius:50%;
+    margin-right:10px;
+    transition:.3s;
+}
+
+.social-links a:hover{
+    background:#d4af37;
+    color:#111827;
+    transform:translateY(-5px);
+}
+
+.footer-bottom{
+    margin-top:50px;
+    padding:20px 0;
+    border-top:1px solid rgba(255,255,255,.1);
+    text-align:center;
+}
+
+.footer-bottom p{
+    color:#aaa;
+    font-size:15px;
+}
+
+/*=========================
+RESPONSIVE
+=========================*/
+
+@media(max-width:768px){
+
+.footer{
+    text-align:center;
+}
+
+.social-links{
+    justify-content:center;
+}
+
+}
+    </style>
+</head>
+<body>
+
+    <!-- ==========================================================
+    HEADER
+    ========================================================== -->
+    <header class="site-header" role="banner">
+        <div class="container header-container">
+            <div class="logo">
+                <a href="index.html" aria-label="Luxury Hotel home">
+                    <i class="fas fa-hotel" aria-hidden="true"></i>
+                    <span>Luxury Hotel</span>
+                </a>
+            </div>
+
+            <nav class="main-nav" id="mainNav" aria-label="Main navigation">
+                <ul class="nav-list">
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li><a href="about.html" class="nav-link">About</a></li>
+                    <li><a href="rooms.html" class="nav-link">Rooms</a></li>
+                    <li><a href="contact.html" class="nav-link">Contact</a></li>
+                    <li><a href="booking.html" class="nav-link nav-cta active">Book Now</a></li>
+                </ul>
+            </nav>
+
+            <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle navigation menu" aria-expanded="false">
+                <i class="fas fa-bars" aria-hidden="true"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- ==========================================================
+    PAGE HERO
+    ========================================================== -->
+    <section class="page-hero">
+        <div class="container page-hero-content">
+            <h1>Secure <span>Payment</span></h1>
+            <p>Complete your booking with our secure payment options</p>
+            <div class="breadcrumb">
+                <a href="index.html">Home</a>
+                <span>/</span>
+                <a href="booking.html">Booking</a>
+                <span>/</span>
+                <span>Payment</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================
+    PAYMENT SECTION
+    ========================================================== -->
+    <section class="payment-section">
+        <div class="container">
+            <div class="payment-grid">
+
+                <!-- Payment Form -->
+                <div class="payment-card">
+                    <h2>Payment Details</h2>
+                    <p class="subtitle">Select your preferred payment method and complete the transaction</p>
+
+                    <!-- Payment Methods -->
+                    <label style="font-weight:700;color:var(--dark);display:block;margin-bottom:12px;">Select Payment Method</label>
+                    <div class="payment-methods-grid" id="paymentMethods">
+                        <div class="payment-method-option" data-method="cash" onclick="selectPaymentMethod('cash')">
+                            <i class="fas fa-money-bill-wave" aria-hidden="true"></i>
+                            <div class="method-name">Cash</div>
+                            <div class="method-desc">Pay at the hotel</div>
+                        </div>
+                        <div class="payment-method-option" data-method="mobile" onclick="selectPaymentMethod('mobile')">
+                            <i class="fas fa-mobile-alt" aria-hidden="true"></i>
+                            <div class="method-name">Mobile Money</div>
+                            <div class="method-desc">MTN, Airtel, Orange</div>
+                        </div>
+                        <div class="payment-method-option" data-method="credit" onclick="selectPaymentMethod('credit')">
+                            <i class="fas fa-credit-card" aria-hidden="true"></i>
+                            <div class="method-name">Credit Card</div>
+                            <div class="method-desc">Visa, Mastercard, Amex</div>
+                        </div>
+                    </div>
+
+                    <!-- Payment Details Forms -->
+                    <div class="payment-details" id="cashDetails">
+                        <div style="padding:20px;background:var(--light);border-radius:12px;text-align:center;">
+                            <i class="fas fa-hand-holding-usd" style="font-size:3rem;color:var(--gold);margin-bottom:15px;display:block;"></i>
+                            <h4 style="color:var(--dark);margin-bottom:8px;">Cash Payment</h4>
+                            <p style="color:var(--text-light);">You will pay <strong style="color:var(--gold);" id="cashAmount">$0.00</strong> in cash at check-in.</p>
+                            <p style="font-size:0.9rem;color:var(--text-light);margin-top:8px;">
+                                <i class="fas fa-info-circle" aria-hidden="true"></i>
+                                Cash payment accepted at the front desk upon arrival.
+                            </p>
+                            <div style="margin-top:15px;padding:12px;background:#fff;border-radius:8px;">
+                                <span style="font-weight:600;">Booking Reference:</span>
+                                <span style="color:var(--gold);font-weight:700;" id="cashBookingRef">-</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="payment-details" id="mobileDetails">
+                        <div style="padding:20px;background:var(--light);border-radius:12px;">
+                            <h4 style="color:var(--dark);margin-bottom:15px;">
+                                <i class="fas fa-mobile-alt" style="color:var(--gold);margin-right:8px;"></i>
+                                Mobile Money Payment
+                            </h4>
+                            <div class="form-group">
+                                <label>Mobile Number <span class="required">*</span></label>
+                                <div class="input-wrapper">
+                                    <i class="fas fa-phone" aria-hidden="true"></i>
+                                    <input type="tel" class="form-control" id="mobileNumber" placeholder="+1 234 567 8900" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Provider <span class="required">*</span></label>
+                                <div class="input-wrapper">
+                                    <i class="fas fa-building" aria-hidden="true"></i>
+                                    <select class="form-control" id="mobileProvider">
+                                        <option value="mtn">MTN Mobile Money</option>
+                                        <option value="airtel">Airtel Money</option>
+                                        <option value="orange">Orange Money</option>
+                                        <option value="tigo">Tigo Cash</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Full Name <span class="required">*</span></label>
+                                <div class="input-wrapper">
+                                    <i class="fas fa-user" aria-hidden="true"></i>
+                                    <input type="text" class="form-control" id="mobileName" placeholder="John Doe" required>
+                                </div>
+                            </div>
+                            <div style="padding:12px;background:#fff;border-radius:8px;text-align:center;margin-top:10px;">
+                                <span style="color:var(--text-light);">Amount to pay:</span>
+                                <strong style="color:var(--gold);font-size:1.2rem;display:block;" id="mobileAmount">$0.00</strong>
+                            </div>
+                            <div style="margin-top:12px;padding:10px;background:#fff;border-radius:8px;text-align:center;font-size:0.85rem;color:var(--text-light);">
+                                <i class="fas fa-info-circle" aria-hidden="true"></i>
+                                You will receive a payment confirmation via SMS
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="payment-details" id="creditDetails">
+                        <div style="padding:20px;background:var(--light);border-radius:12px;">
+                            <h4 style="color:var(--dark);margin-bottom:15px;">
+                                <i class="fas fa-credit-card" style="color:var(--gold);margin-right:8px;"></i>
+                                Credit Card Payment
+                            </h4>
+                            <div class="form-group">
+                                <label>Card Number <span class="required">*</span></label>
+                                <div class="input-wrapper">
+                                    <i class="fas fa-credit-card" aria-hidden="true"></i>
+                                    <input type="text" class="form-control" id="cardNumber" placeholder="1234 5678 9012 3456" maxlength="19" required>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Expiry Date <span class="required">*</span></label>
+                                    <div class="input-wrapper">
+                                        <i class="fas fa-calendar" aria-hidden="true"></i>
+                                        <input type="text" class="form-control" id="cardExpiry" placeholder="MM/YY" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>CVV <span class="required">*</span></label>
+                                    <div class="input-wrapper">
+                                        <i class="fas fa-lock" aria-hidden="true"></i>
+                                        <input type="password" class="form-control" id="cardCvv" placeholder="123" maxlength="4" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Cardholder Name <span class="required">*</span></label>
+                                <div class="input-wrapper">
+                                    <i class="fas fa-user" aria-hidden="true"></i>
+                                    <input type="text" class="form-control" id="cardName" placeholder="John Doe" required>
+                                </div>
+                            </div>
+                            <div style="padding:12px;background:#fff;border-radius:8px;text-align:center;margin-top:10px;">
+                                <span style="color:var(--text-light);">Amount to charge:</span>
+                                <strong style="color:var(--gold);font-size:1.2rem;display:block;" id="creditAmount">$0.00</strong>
+                            </div>
+                            <div style="margin-top:12px;display:flex;gap:12px;justify-content:center;font-size:0.85rem;color:var(--text-light);">
+                                <span><i class="fab fa-cc-visa" style="color:#1a1f71;"></i> Visa</span>
+                                <span><i class="fab fa-cc-mastercard" style="color:#eb001b;"></i> Mastercard</span>
+                                <span><i class="fab fa-cc-amex" style="color:#006fcf;"></i> Amex</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div style="margin-top:25px;display:flex;gap:15px;">
+                        <button class="btn btn-outline" onclick="window.location.href='booking.html'">
+                            <i class="fas fa-arrow-left" aria-hidden="true"></i> Back
+                        </button>
+                        <button class="btn btn-success btn-block" id="payNowBtn" onclick="processPayment()" disabled>
+                            <i class="fas fa-lock" aria-hidden="true"></i> Pay Now
+                        </button>
+                    </div>
+                    <div style="margin-top:15px;text-align:center;font-size:0.85rem;color:var(--text-light);">
+                        <i class="fas fa-shield-alt" style="color:var(--gold);"></i>
+                        Your payment is secure and encrypted
+                    </div>
+                </div>
+
+                <!-- Summary Sidebar -->
+                <div class="summary-card">
+                    <div class="summary-header">
+                        <i class="fas fa-receipt" aria-hidden="true"></i>
+                        <h3>Payment Summary</h3>
+                    </div>
+
+                    <div class="summary-item">
+                        <span class="label">Booking Reference</span>
+                        <span class="value" id="summaryRef">-</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="label">Room</span>
+                        <span class="value" id="summaryRoom">-</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="label">Guest</span>
+                        <span class="value" id="summaryGuest">-</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="label">Check-in</span>
+                        <span class="value" id="summaryCheckIn">-</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="label">Check-out</span>
+                        <span class="value" id="summaryCheckOut">-</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="label">Nights</span>
+                        <span class="value" id="summaryNights">-</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="label">Guests</span>
+                        <span class="value" id="summaryGuests">-</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="label">Room Rate</span>
+                        <span class="value price" id="summaryRate">$0</span>
+                    </div>
+
+                    <div class="summary-total">
+                        <div class="total-row">
+                            <span>Total Amount</span>
+                            <span class="total-amount" id="summaryTotal">$0.00</span>
+                        </div>
+                        <div class="tax-row">
+                            <span>Tax (10%)</span>
+                            <span id="summaryTax">$0.00</span>
+                        </div>
+                        <div class="tax-row">
+                            <span>Payment Status</span>
+                            <span class="payment-status-badge pending" id="summaryStatus">Pending</span>
+                        </div>
+                    </div>
+
+                    <div style="margin-top:20px;padding:15px;background:var(--light);border-radius:12px;text-align:center;font-size:0.85rem;color:var(--text-light);">
+                        <i class="fas fa-check-circle" style="color:var(--gold);"></i>
+                        Secure payment processing
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Payment History -->
+            <div class="history-section">
+                <h3><i class="fas fa-history" style="color:var(--gold);margin-right:8px;"></i> Payment History</h3>
+                <div class="history-table-wrapper">
+                    <table class="history-table">
+                        <thead>
+                            <tr>
+                                <th>Transaction ID</th>
+                                <th>Booking Ref</th>
+                                <th>Amount</th>
+                                <th>Method</th>
+                                <th>Status</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                        <tbody id="paymentHistory">
+                            <!-- Dynamically loaded -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================
+    CONFIRMATION MODAL
+    ========================================================== -->
+    <div class="modal-overlay" id="confirmationModal">
+        <div class="modal-box">
+            <div class="success-icon">
+                <i class="fas fa-check-circle" aria-hidden="true"></i>
+            </div>
+            <h2>Payment Successful!</h2>
+            <p>Your payment has been processed successfully.</p>
+            <div class="transaction-details" id="transactionDetails">
+                <!-- Dynamically filled -->
+            </div>
+            <div class="modal-actions">
+                <a href="index.html" class="btn btn-primary">Return Home</a>
+                <a href="#" class="btn btn-outline" onclick="window.print()">
+                    <i class="fas fa-print" aria-hidden="true"></i> Print Receipt
+                </a>
+                <a href="booking.html" class="btn btn-outline">New Booking</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==========================================================
+    ERROR MODAL
+    ========================================================== -->
+    <div class="modal-overlay" id="errorModal">
+        <div class="modal-box">
+            <div class="error-icon">
+                <i class="fas fa-times-circle" aria-hidden="true"></i>
+            </div>
+            <h2>Payment Failed</h2>
+            <p id="errorMessage">There was an issue processing your payment. Please try again.</p>
+            <div class="modal-actions">
+                <button class="btn btn-primary" onclick="document.getElementById('errorModal').classList.remove('active')">
+                    Try Again
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==========================================================
+    FOOTER
+    ========================================================== -->
+    <!-- ================= FOOTER ================= -->
+
+<footer class="footer">
+
+    <div class="container footer-container">
+
+        <!-- Hotel Info -->
+        <div class="footer-box">
+
+            <h2 class="footer-logo">
+                <i class="fas fa-hotel"></i> Luxury Hotel
+            </h2>
+
+            <p>
+                Experience luxury, comfort, and world-class hospitality.
+                We provide premium rooms and exceptional services to make
+                every stay unforgettable.
+            </p>
+
+        </div>
+
+        <!-- Quick Links -->
+        <div class="footer-box">
+
+            <h3>Quick Links</h3>
+
+            <ul>
+
+                <li><a href="index.html">Home</a></li>
+                <li><a href="room.html">Rooms</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="booking.html">Booking</a></li>
+                <li><a href="contact.html">Contact</a></li>
+
+            </ul>
+
+        </div>
+
+        <!-- Services -->
+        <div class="footer-box">
+
+            <h3>Services</h3>
+
+            <ul>
+
+                <li>Luxury Rooms</li>
+                <li>Restaurant</li>
+                <li>Spa & Wellness</li>
+                <li>Swimming Pool</li>
+                <li>Airport Pickup</li>
+
+            </ul>
+
+        </div>
+
+        <!-- Contact -->
+        <div class="footer-box">
+
+            <h3>Contact Us</h3>
+
+            <p>
+                <i class="fas fa-map-marker-alt"></i>
+                Kigali, Rwanda
+            </p>
+
+            <p>
+                <i class="fas fa-phone"></i>
+                +250 788 000 000
+            </p>
+
+            <p>
+                <i class="fas fa-envelope"></i>
+                info@luxuryhotel.com
+            </p>
+
+            <div class="social-links">
+
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+
+                <a href="#"><i class="fab fa-instagram"></i></a>
+
+                <a href="#"><i class="fab fa-twitter"></i></a>
+
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="footer-bottom">
+
+        <p>
+            © 2026 Luxury Hotel. All Rights Reserved |
+            Designed by Nathan
+        </p>
+
+    </div>
+
+</footer>
+
+    <!-- ==========================================================
+    JAVASCRIPT
+    ========================================================== -->
+    <script>
+        // ============================================================
+        // PAYMENT DATA
+        // ============================================================
+        let selectedMethod = null;
+        let currentBooking = null;
+        let payments = [];
+
+        // ============================================================
+        // INITIALIZE
+        // ============================================================
+        function init() {
+            // Load booking data from localStorage
+            loadBookingData();
+
+            // Load payment history
+            loadPaymentHistory();
+
+            // Set default amount displays
+            updateAmounts();
+
+            // Event listeners for card formatting
+            setupCardFormatting();
+        }
+
+        // ============================================================
+        // LOAD BOOKING DATA
+        // ============================================================
+        function loadBookingData() {
+            const bookings = JSON.parse(localStorage.getItem('hotel_bookings') || '[]');
+
+            // Get the most recent booking (or specific one from URL)
+            const params = new URLSearchParams(window.location.search);
+            const bookingId = params.get('id');
+
+            if (bookingId) {
+                currentBooking = bookings.find(b => b.id == bookingId);
+            } else if (bookings.length > 0) {
+                currentBooking = bookings[bookings.length - 1];
+            }
+
+            if (!currentBooking) {
+                // Create a sample booking for demo
+                currentBooking = {
+                    id: Date.now(),
+                    reference: generateBookingReference(),
+                    roomName: 'Deluxe Room',
+                    checkIn: new Date().toISOString().split('T')[0],
+                    checkOut: new Date(Date.now() + 3 * 86400000).toISOString().split('T')[0],
+                    nights: 3,
+                    guests: 2,
+                    total: 600,
+                    guestName: 'John Doe',
+                    guestEmail: 'john@example.com',
+                    guestPhone: '+1 234 567 8900',
+                    specialRequests: '',
+                    paymentMethod: 'pending',
+                    status: 'pending',
+                    createdAt: new Date().toISOString()
+                };
+                // Save it
+                bookings.push(currentBooking);
+                localStorage.setItem('hotel_bookings', JSON.stringify(bookings));
+            }
+
+            // Update summary
+            updateSummary();
+
+            // Update booking reference in cash section
+            document.getElementById('cashBookingRef').textContent = currentBooking.reference || 'BK-0000';
+        }
+
+        // ============================================================
+        // LOAD PAYMENT HISTORY
+        // ============================================================
+        function loadPaymentHistory() {
+            const savedPayments = JSON.parse(localStorage.getItem('hotel_payments') || '[]');
+            payments = savedPayments;
+            renderPaymentHistory();
+        }
+
+        // ============================================================
+        // RENDER PAYMENT HISTORY
+        // ============================================================
+        function renderPaymentHistory() {
+            const tbody = document.getElementById('paymentHistory');
+
+            if (payments.length === 0) {
+                tbody.innerHTML = `
+                            <tr>
+                                <td colspan="6" style="text-align:center;padding:30px;color:var(--text-light);">
+                                    No payment transactions found
+                                </td>
+                            </tr>
+                        `;
+                return;
+            }
+
+            tbody.innerHTML = payments.slice(0, 10).map(p => `
+                        <tr>
+                            <td><strong>#${p.transactionId}</strong></td>
+                            <td>${p.bookingRef || '-'}</td>
+                            <td><strong>$${p.amount.toFixed(2)}</strong></td>
+                            <td>${p.method.charAt(0).toUpperCase() + p.method.slice(1)}</td>
+                            <td><span class="payment-status-badge ${p.status}">${p.status}</span></td>
+                            <td>${p.date || new Date(p.createdAt).toLocaleDateString()}</td>
+                        </tr>
+                    `).join('');
+        }
+
+        // ============================================================
+        // UPDATE SUMMARY
+        // ============================================================
+        function updateSummary() {
+            if (!currentBooking) return;
+
+            document.getElementById('summaryRef').textContent = currentBooking.reference || '-';
+            document.getElementById('summaryRoom').textContent = currentBooking.roomName || '-';
+            document.getElementById('summaryGuest').textContent = currentBooking.guestName || '-';
+            document.getElementById('summaryCheckIn').textContent = currentBooking.checkIn || '-';
+            document.getElementById('summaryCheckOut').textContent = currentBooking.checkOut || '-';
+            document.getElementById('summaryNights').textContent = currentBooking.nights || 0;
+            document.getElementById('summaryGuests').textContent = currentBooking.guests || 0;
+
+            const rate = currentBooking.nights > 0 ? (currentBooking.total / currentBooking.nights) : 0;
+            document.getElementById('summaryRate').textContent = `$${rate.toFixed(2)}`;
+            document.getElementById('summaryTotal').textContent = `$${currentBooking.total.toFixed(2)}`;
+
+            const tax = currentBooking.total * 0.1;
+            document.getElementById('summaryTax').textContent = `$${tax.toFixed(2)}`;
+
+            // Update amounts in payment sections
+            document.getElementById('cashAmount').textContent = `$${currentBooking.total.toFixed(2)}`;
+            document.getElementById('mobileAmount').textContent = `$${currentBooking.total.toFixed(2)}`;
+            document.getElementById('creditAmount').textContent = `$${currentBooking.total.toFixed(2)}`;
+        }
+
+        function updateAmounts() {
+            if (currentBooking) {
+                const total = currentBooking.total || 0;
+                document.getElementById('cashAmount').textContent = `$${total.toFixed(2)}`;
+                document.getElementById('mobileAmount').textContent = `$${total.toFixed(2)}`;
+                document.getElementById('creditAmount').textContent = `$${total.toFixed(2)}`;
+            }
+        }
+
+        // ============================================================
+        // SELECT PAYMENT METHOD
+        // ============================================================
+        function selectPaymentMethod(method) {
+            selectedMethod = method;
+
+            // Update UI
+            document.querySelectorAll('.payment-method-option').forEach(el => {
+                el.classList.toggle('selected', el.dataset.method === method);
+            });
+
+            // Hide all details
+            document.querySelectorAll('.payment-details').forEach(el => {
+                el.classList.remove('active');
+            });
+
+            // Show selected details
+            const detailsMap = {
+                'cash': 'cashDetails',
+                'mobile': 'mobileDetails',
+                'credit': 'creditDetails'
+            };
+
+            const detailsEl = document.getElementById(detailsMap[method]);
+            if (detailsEl) {
+                detailsEl.classList.add('active');
+            }
+
+            // Enable pay button
+            document.getElementById('payNowBtn').disabled = false;
+
+            showToast(`Selected ${method.charAt(0).toUpperCase() + method.slice(1)} payment`, 'info');
+        }
+
+        // ============================================================
+        // PROCESS PAYMENT
+        // ============================================================
+        function processPayment() {
+            if (!selectedMethod) {
+                showToast('Please select a payment method', 'error');
+                return;
+            }
+
+            // Validate based on method
+            if (selectedMethod === 'mobile') {
+                const mobile = document.getElementById('mobileNumber');
+                const name = document.getElementById('mobileName');
+
+                if (!mobile.value.trim() || mobile.value.trim().length < 8) {
+                    showToast('Please enter a valid mobile number', 'error');
+                    mobile.focus();
+                    mobile.classList.add('error');
+                    return;
+                }
+                if (!name.value.trim()) {
+                    showToast('Please enter your full name', 'error');
+                    name.focus();
+                    name.classList.add('error');
+                    return;
+                }
+            }
+
+            if (selectedMethod === 'credit') {
+                const cardNumber = document.getElementById('cardNumber');
+                const cardExpiry = document.getElementById('cardExpiry');
+                const cardCvv = document.getElementById('cardCvv');
+                const cardName = document.getElementById('cardName');
+
+                const cardNumClean = cardNumber.value.replace(/\s/g, '');
+                if (!cardNumClean || cardNumClean.length < 16) {
+                    showToast('Please enter a valid card number', 'error');
+                    cardNumber.focus();
+                    cardNumber.classList.add('error');
+                    return;
+                }
+                if (!cardExpiry.value.trim() || cardExpiry.value.length < 5) {
+                    showToast('Please enter expiry date (MM/YY)', 'error');
+                    cardExpiry.focus();
+                    cardExpiry.classList.add('error');
+                    return;
+                }
+                if (!cardCvv.value.trim() || cardCvv.value.length < 3) {
+                    showToast('Please enter a valid CVV', 'error');
+                    cardCvv.focus();
+                    cardCvv.classList.add('error');
+                    return;
+                }
+                if (!cardName.value.trim()) {
+                    showToast('Please enter cardholder name', 'error');
+                    cardName.focus();
+                    cardName.classList.add('error');
+                    return;
+                }
+            }
+
+            // Simulate payment processing
+            const payBtn = document.getElementById('payNowBtn');
+            payBtn.disabled = true;
+            payBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+
+            // Simulate API call
+            setTimeout(() => {
+                // Random success (90% success rate)
+                const success = Math.random() < 0.9;
+
+                if (success) {
+                    // Create payment record
+                    const transactionId = 'TXN' + Date.now().toString().slice(-8);
+
+                    const payment = {
+                        id: Date.now(),
+                        transactionId: transactionId,
+                        bookingRef: currentBooking.reference,
+                        bookingId: currentBooking.id,
+                        amount: currentBooking.total,
+                        method: selectedMethod,
+                        status: 'completed',
+                        date: new Date().toISOString().split('T')[0],
+                        createdAt: new Date().toISOString()
+                    };
+
+                    // Save payment
+                    payments.push(payment);
+                    localStorage.setItem('hotel_payments', JSON.stringify(payments));
+
+                    // Update booking status
+                    updateBookingStatus(currentBooking.id, 'confirmed', selectedMethod);
+
+                    // Update summary status
+                    document.getElementById('summaryStatus').className = 'payment-status-badge completed';
+                    document.getElementById('summaryStatus').textContent = 'Completed';
+
+                    // Show success modal
+                    showSuccessModal(payment);
+
+                    // Render updated history
+                    renderPaymentHistory();
+
+                    showToast('✅ Payment successful! Transaction ID: ' + transactionId, 'success');
+
+                } else {
+                    // Payment failed
+                    showErrorModal('Your payment could not be processed. Please check your payment details and try again.');
+                    showToast('❌ Payment failed. Please try again.', 'error');
+                }
+
+                payBtn.disabled = false;
+                payBtn.innerHTML = '<i class="fas fa-lock"></i> Pay Now';
+
+            }, 2500);
+        }
+
+        // ============================================================
+        // UPDATE BOOKING STATUS
+        // ============================================================
+        function updateBookingStatus(bookingId, status, paymentMethod) {
+            const bookings = JSON.parse(localStorage.getItem('hotel_bookings') || '[]');
+            const index = bookings.findIndex(b => b.id === bookingId);
+            if (index !== -1) {
+                bookings[index].status = status;
+                bookings[index].paymentMethod = paymentMethod;
+                bookings[index].paymentDate = new Date().toISOString();
+                localStorage.setItem('hotel_bookings', JSON.stringify(bookings));
+            }
+        }
+
+        // ============================================================
+        // SHOW SUCCESS MODAL
+        // ============================================================
+        function showSuccessModal(payment) {
+            const modal = document.getElementById('confirmationModal');
+            const details = document.getElementById('transactionDetails');
+
+            details.innerHTML = `
+                        <div class="detail-row">
+                            <span class="label">Transaction ID</span>
+                            <span class="value" style="color:var(--gold);">${payment.transactionId}</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="label">Booking Reference</span>
+                            <span class="value">${payment.bookingRef}</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="label">Amount Paid</span>
+                            <span class="value" style="color:var(--gold);font-weight:700;">$${payment.amount.toFixed(2)}</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="label">Payment Method</span>
+                            <span class="value">${payment.method.charAt(0).toUpperCase() + payment.method.slice(1)}</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="label">Date</span>
+                            <span class="value">${payment.date}</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="label">Status</span>
+                            <span class="value"><span class="payment-status-badge completed">Completed</span></span>
+                        </div>
+                    `;
+
+            modal.classList.add('active');
+        }
+
+        // ============================================================
+        // SHOW ERROR MODAL
+        // ============================================================
+        function showErrorModal(message) {
+            document.getElementById('errorMessage').textContent = message;
+            document.getElementById('errorModal').classList.add('active');
+        }
+
+        // ============================================================
+        // SETUP CARD FORMATTING
+        // ============================================================
+        function setupCardFormatting() {
+            document.addEventListener('input', function(e) {
+                if (e.target.id === 'cardNumber') {
+                    let value = e.target.value.replace(/\D/g, '');
+                    if (value.length > 16) value = value.slice(0, 16);
+                    const formatted = value.replace(/(.{4})/g, '$1 ').trim();
+                    e.target.value = formatted;
+
+                    // Validate length
+                    if (value.length === 16) {
+                        e.target.classList.add('success');
+                        e.target.classList.remove('error');
+                    } else if (value.length > 0) {
+                        e.target.classList.remove('success');
+                    }
+                }
+
+                if (e.target.id === 'cardExpiry') {
+                    let value = e.target.value.replace(/\D/g, '');
+                    if (value.length > 4) value = value.slice(0, 4);
+                    if (value.length >= 2) {
+                        value = value.slice(0, 2) + '/' + value.slice(2);
+                    }
+                    e.target.value = value;
+
+                    if (value.length === 5) {
+                        e.target.classList.add('success');
+                        e.target.classList.remove('error');
+                    } else if (value.length > 0) {
+                        e.target.classList.remove('success');
+                    }
+                }
+
+                if (e.target.id === 'cardCvv') {
+                    e.target.value = e.target.value.replace(/\D/g, '').slice(0, 4);
+                    if (e.target.value.length >= 3) {
+                        e.target.classList.add('success');
+                        e.target.classList.remove('error');
+                    } else if (e.target.value.length > 0) {
+                        e.target.classList.remove('success');
+                    }
+                }
+
+                // Clear error on focus
+                if (e.target.classList.contains('error')) {
+                    e.target.classList.remove('error');
+                }
+            });
+        }
+
+        // ============================================================
+        // GENERATE BOOKING REFERENCE
+        // ============================================================
+        function generateBookingReference() {
+            const prefix = 'BK';
+            const date = new Date();
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            const random = String(Math.floor(Math.random() * 10000)).padStart(4, '0');
+            return `${prefix}${year}${month}${day}${random}`;
+        }
+
+        // ============================================================
+        // CLOSE MODALS
+        // ============================================================
+        document.querySelectorAll('.modal-overlay').forEach(modal => {
+            modal.addEventListener('click', function(e) {
+                if (e.target === this) {
+                    this.classList.remove('active');
+                }
+            });
+        });
+
+        // ============================================================
+        // TOAST NOTIFICATION
+        // ============================================================
+        function showToast(message, type = 'info') {
+            const container = document.querySelector('.toast-container') || createToastContainer();
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+
+            const icons = {
+                success: 'fa-check-circle',
+                error: 'fa-exclamation-circle',
+                info: 'fa-info-circle'
+            };
+
+            toast.innerHTML = `
+                        <i class="fas ${icons[type] || icons.info}" aria-hidden="true"></i>
+                        <span>${message}</span>
+                    `;
+
+            container.appendChild(toast);
+
+            setTimeout(() => {
+                toast.style.animation = 'slideOutRight 0.4s ease forwards';
+                setTimeout(() => toast.remove(), 400);
+            }, 4000);
+        }
+
+        function createToastContainer() {
+            const container = document.createElement('div');
+            container.className = 'toast-container';
+            document.body.appendChild(container);
+            return container;
+        }
+
+        // ============================================================
+        // MOBILE MENU TOGGLE
+        // ============================================================
+        const mobileToggle = document.getElementById('mobileMenuToggle');
+        const mainNav = document.getElementById('mainNav');
+
+        mobileToggle.addEventListener('click', function() {
+            const isOpen = mainNav.classList.toggle('open');
+            this.setAttribute('aria-expanded', isOpen);
+            const icon = this.querySelector('i');
+            icon.className = isOpen ? 'fas fa-times' : 'fas fa-bars';
+        });
+
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function() {
+                mainNav.classList.remove('open');
+                mobileToggle.setAttribute('aria-expanded', 'false');
+                mobileToggle.querySelector('i').className = 'fas fa-bars';
+            });
+        });
+
+        // ============================================================
+        // CONSOLE WELCOME
+        // ============================================================
+        console.log('%c💰 Luxury Hotel - Payment Page', 'font-size:24px; font-weight:bold; color:#c8a46e;');
+        console.log('%c🔒 Secure payment processing', 'font-size:14px; color:#6c757d;');
+        console.log(`%c💳 ${payments.length} transactions processed`, 'font-size:12px; color:#adb5bd;');
+
+        // ============================================================
+        // INITIALIZE
+        // ============================================================
+        init();
+    </script>
+</body>
+</html>

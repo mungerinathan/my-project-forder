@@ -1,0 +1,1814 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gym & Fitness | Luxury Hotel</title>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <style>
+        /* ============================================
+                   TABLE OF CONTENTS
+                   1. RESET & BASE
+                   2. DARK MODE
+                   3. THEME TOGGLE
+                   4. HEADER / NAVIGATION
+                   5. HERO SECTION
+                   6. CONTAINER & TITLES
+                   7. GYM INTRO
+                   8. GYM FEATURES
+                   9. EQUIPMENT
+                   10. FITNESS CLASSES
+                   11. PERSONAL TRAINING
+                   12. MEMBERSHIP PLANS
+                   13. GUEST REVIEWS
+                   14. AMENITIES
+                   15. BOOKING FORM
+                   16. CTA SECTION
+                   17. BACK HOME
+                   18. TOAST NOTIFICATIONS
+                   19. FOOTER
+                   20. RESPONSIVE
+                ============================================ */
+
+        /* ===== 1. RESET & BASE ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', 'Helvetica', sans-serif;
+            transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+        }
+
+        body {
+            background: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        /* ===== 2. DARK MODE ===== */
+        body.dark-mode {
+            background: #1a1a1a;
+            color: #e0e0e0;
+        }
+
+        body.dark-mode .card,
+        body.dark-mode .hours,
+        body.dark-mode .feature,
+        body.dark-mode .booking-form,
+        body.dark-mode .review-card,
+        body.dark-mode .package-card,
+        body.dark-mode .equipment-card,
+        body.dark-mode .class-card,
+        body.dark-mode .trainer-card,
+        body.dark-mode .gym-feature-item {
+            background: #2a2a2a;
+            color: #e0e0e0;
+        }
+
+        body.dark-mode .hero {
+            background: linear-gradient(rgba(0, 0, 0, .7), rgba(0, 0, 0, .7)),
+                url("https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1600") center/cover;
+        }
+
+        body.dark-mode .card-content p,
+        body.dark-mode .about {
+            color: #bbb;
+        }
+
+        body.dark-mode .hours th {
+            background: #c8a96a;
+            color: #1a1a1a;
+        }
+
+        body.dark-mode .hours td {
+            border-bottom-color: #444;
+        }
+
+        /* ===== 3. THEME TOGGLE ===== */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: #c8a96a;
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 22px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, .3);
+            transition: 0.3s;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+        }
+
+        /* ===== 4. HEADER / NAVIGATION ===== */
+        .header {
+            position: sticky;
+            top: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 15px 30px;
+            z-index: 100;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, .1);
+        }
+
+        body.dark-mode .header {
+            background: rgba(26, 26, 26, 0.95);
+        }
+
+        .header .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #c8a96a;
+        }
+
+        .logo span {
+            color: #333;
+        }
+
+        body.dark-mode .logo span {
+            color: #e0e0e0;
+        }
+
+        .navbar ul {
+            display: flex;
+            gap: 25px;
+            align-items: center;
+        }
+
+        .navbar ul li a {
+            color: #333;
+            font-weight: 600;
+            transition: 0.3s;
+            position: relative;
+            padding: 8px 0;
+        }
+
+        body.dark-mode .navbar ul li a {
+            color: #e0e0e0;
+        }
+
+        .navbar ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #c8a96a;
+            transition: 0.3s;
+        }
+
+        .navbar ul li a:hover::after,
+        .navbar ul li a.active::after {
+            width: 100%;
+        }
+
+        .navbar ul li a:hover {
+            color: #c8a96a;
+        }
+
+        .btn-login {
+            background: transparent;
+            border: 2px solid #c8a96a;
+            color: #c8a96a !important;
+            padding: 8px 20px !important;
+            border-radius: 30px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .btn-login:hover {
+            background: #c8a96a;
+            color: #fff !important;
+        }
+
+        .btn-book {
+            background: #c8a96a;
+            color: #fff !important;
+            padding: 8px 20px !important;
+            border-radius: 30px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .btn-book:hover {
+            background: #b8943e;
+            transform: translateY(-2px);
+        }
+
+        #menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 28px;
+            color: #c8a96a;
+            cursor: pointer;
+        }
+
+        /* ===== 5. HERO SECTION ===== */
+        .hero {
+            height: 70vh;
+            background: linear-gradient(rgba(0, 0, 0, .5), rgba(0, 0, 0, .5)),
+                url("https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1600") center/cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: #fff;
+            position: relative;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: #c8a96a;
+            color: #fff;
+            padding: 5px 20px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+        }
+
+        .hero h1 {
+            font-size: 60px;
+            margin-bottom: 15px;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero p {
+            font-size: 22px;
+            animation: fadeInUp 1.2s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .scroll-down {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+            font-size: 30px;
+            color: #c8a96a;
+        }
+
+        @keyframes bounce {
+            0%,
+            20%,
+            50%,
+            80%,
+            100% {
+                transform: translateX(-50%) translateY(0);
+            }
+            40% {
+                transform: translateX(-50%) translateY(-20px);
+            }
+            60% {
+                transform: translateX(-50%) translateY(-10px);
+            }
+        }
+
+        /* ===== 6. CONTAINER & TITLES ===== */
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: auto;
+            padding: 70px 0;
+        }
+
+        .title {
+            text-align: center;
+            font-size: 35px;
+            color: #c8a96a;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 3px;
+            background: #c8a96a;
+            margin: 15px auto 0;
+            border-radius: 5px;
+        }
+
+        .about {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 60px;
+            color: #555;
+            font-size: 18px;
+        }
+
+        /* ===== 7. GYM INTRO ===== */
+        .gym-intro {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+            margin-bottom: 60px;
+        }
+
+        .gym-intro-image {
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, .1);
+        }
+
+        .gym-intro-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .gym-intro-text h2 {
+            color: #c8a96a;
+            font-size: 28px;
+            margin-bottom: 15px;
+        }
+
+        .gym-intro-text p {
+            color: #666;
+            font-size: 16px;
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+
+        body.dark-mode .gym-intro-text p {
+            color: #bbb;
+        }
+
+        .gym-intro-text .highlight {
+            color: #c8a96a;
+            font-weight: bold;
+        }
+
+        /* ===== 8. GYM FEATURES ===== */
+        .gym-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+
+        .gym-feature-item {
+            background: #fff;
+            padding: 30px 20px;
+            text-align: center;
+            border-radius: 16px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, .08);
+            transition: 0.3s;
+        }
+
+        .gym-feature-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, .12);
+        }
+
+        .gym-feature-item i {
+            font-size: 40px;
+            color: #c8a96a;
+            margin-bottom: 15px;
+        }
+
+        .gym-feature-item h4 {
+            font-size: 16px;
+            margin-bottom: 8px;
+            color: #1a1410;
+        }
+
+        body.dark-mode .gym-feature-item h4 {
+            color: #e0e0e0;
+        }
+
+        .gym-feature-item p {
+            color: #999;
+            font-size: 13px;
+        }
+
+        /* ===== 9. EQUIPMENT ===== */
+        .equipment-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+
+        .equipment-card {
+            background: #fff;
+            padding: 25px;
+            text-align: center;
+            border-radius: 16px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, .08);
+            transition: 0.3s;
+        }
+
+        .equipment-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, .12);
+        }
+
+        body.dark-mode .equipment-card {
+            background: #2a2a2a;
+        }
+
+        .equipment-card .equip-icon {
+            font-size: 45px;
+            margin-bottom: 10px;
+        }
+
+        .equipment-card h4 {
+            font-size: 16px;
+            margin-bottom: 5px;
+            color: #1a1410;
+        }
+
+        body.dark-mode .equipment-card h4 {
+            color: #e0e0e0;
+        }
+
+        .equipment-card p {
+            color: #999;
+            font-size: 13px;
+        }
+
+        /* ===== 10. FITNESS CLASSES ===== */
+        .classes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+
+        .class-card {
+            background: #fff;
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, .08);
+            text-align: center;
+            transition: 0.3s;
+            border-left: 4px solid #c8a96a;
+        }
+
+        .class-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, .12);
+        }
+
+        body.dark-mode .class-card {
+            background: #2a2a2a;
+        }
+
+        .class-card .class-icon {
+            font-size: 40px;
+            margin-bottom: 10px;
+        }
+
+        .class-card h3 {
+            font-size: 18px;
+            margin-bottom: 8px;
+            color: #1a1410;
+        }
+
+        body.dark-mode .class-card h3 {
+            color: #e0e0e0;
+        }
+
+        .class-card p {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        body.dark-mode .class-card p {
+            color: #bbb;
+        }
+
+        .class-card .class-time {
+            display: inline-block;
+            background: #c8a96a;
+            color: #fff;
+            padding: 4px 15px;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 13px;
+            margin-top: 12px;
+        }
+
+        /* ===== 11. PERSONAL TRAINING ===== */
+        .trainers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+
+        .trainer-card {
+            background: #fff;
+            border-radius: 16px;
+            padding: 25px 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, .08);
+            text-align: center;
+            transition: 0.3s;
+        }
+
+        .trainer-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, .12);
+        }
+
+        body.dark-mode .trainer-card {
+            background: #2a2a2a;
+        }
+
+        .trainer-card .trainer-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #c8a96a, #b8943e);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 15px;
+            font-size: 35px;
+            color: #fff;
+        }
+
+        .trainer-card h4 {
+            font-size: 18px;
+            color: #1a1410;
+        }
+
+        body.dark-mode .trainer-card h4 {
+            color: #e0e0e0;
+        }
+
+        .trainer-card .trainer-title {
+            color: #c8a96a;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .trainer-card p {
+            color: #999;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .trainer-card .btn-small {
+            display: inline-block;
+            margin-top: 10px;
+            background: #c8a96a;
+            color: #fff;
+            padding: 6px 20px;
+            border-radius: 30px;
+            font-size: 13px;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .trainer-card .btn-small:hover {
+            background: #b8943e;
+        }
+
+        /* ===== 12. MEMBERSHIP PLANS ===== */
+        .packages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .package-card {
+            background: #fff;
+            border-radius: 16px;
+            padding: 35px 25px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, .08);
+            text-align: center;
+            transition: 0.4s;
+            border: 2px solid transparent;
+            position: relative;
+        }
+
+        .package-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, .15);
+        }
+
+        body.dark-mode .package-card {
+            background: #2a2a2a;
+        }
+
+        .package-card.popular {
+            border-color: #c8a96a;
+        }
+
+        .package-card .popular-badge {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #c8a96a;
+            color: #fff;
+            padding: 4px 20px;
+            border-radius: 30px;
+            font-size: 12px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .package-card .package-icon {
+            font-size: 45px;
+            margin-bottom: 15px;
+        }
+
+        .package-card h3 {
+            font-size: 22px;
+            margin-bottom: 10px;
+            color: #1a1410;
+        }
+
+        body.dark-mode .package-card h3 {
+            color: #e0e0e0;
+        }
+
+        .package-card .package-price {
+            font-size: 32px;
+            font-weight: bold;
+            color: #c8a96a;
+            margin: 10px 0;
+        }
+
+        .package-card .package-price small {
+            font-size: 16px;
+            font-weight: normal;
+            color: #999;
+        }
+
+        .package-card ul {
+            text-align: left;
+            padding: 15px 0;
+        }
+
+        .package-card ul li {
+            padding: 8px 0;
+            border-bottom: 1px solid #f0ebe0;
+            color: #666;
+        }
+
+        body.dark-mode .package-card ul li {
+            color: #bbb;
+            border-bottom-color: #444;
+        }
+
+        .package-card ul li:last-child {
+            border-bottom: none;
+        }
+
+        .package-card ul li i {
+            color: #c8a96a;
+            margin-right: 10px;
+        }
+
+        .package-card .btn {
+            margin-top: 10px;
+        }
+
+        /* ===== 13. GUEST REVIEWS ===== */
+        .review-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+
+        .review-card {
+            background: #fff;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, .08);
+            text-align: center;
+        }
+
+        body.dark-mode .review-card {
+            background: #2a2a2a;
+        }
+
+        .review-card .stars {
+            color: #f1c40f;
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .review-card .review-text {
+            font-style: italic;
+            color: #555;
+            margin: 10px 0;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        body.dark-mode .review-card .review-text {
+            color: #bbb;
+        }
+
+        .review-card .reviewer {
+            font-weight: bold;
+            color: #c8a96a;
+        }
+
+        .review-card .reviewer span {
+            font-weight: normal;
+            color: #999;
+            font-size: 13px;
+        }
+
+        .review-card .reviewer-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #c8a96a, #b8943e);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 15px;
+            font-size: 28px;
+            color: #fff;
+        }
+
+        /* ===== 14. AMENITIES ===== */
+        .amenities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
+        }
+
+        .amenity-item {
+            background: #fff;
+            padding: 25px 15px;
+            text-align: center;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, .08);
+            transition: 0.3s;
+        }
+
+        .amenity-item:hover {
+            transform: translateY(-5px);
+        }
+
+        body.dark-mode .amenity-item {
+            background: #2a2a2a;
+        }
+
+        .amenity-item i {
+            font-size: 35px;
+            color: #c8a96a;
+            margin-bottom: 12px;
+        }
+
+        .amenity-item h4 {
+            font-size: 14px;
+            color: #1a1410;
+        }
+
+        body.dark-mode .amenity-item h4 {
+            color: #e0e0e0;
+        }
+
+        /* ===== 15. BOOKING FORM ===== */
+        .booking-form {
+            margin-top: 40px;
+            background: #fff;
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, .08);
+        }
+
+        body.dark-mode .booking-form {
+            background: #2a2a2a;
+        }
+
+        .booking-form .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .booking-form label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        body.dark-mode .booking-form label {
+            color: #bbb;
+        }
+
+        .booking-form input,
+        .booking-form select,
+        .booking-form textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: 0.3s;
+            background: #fafafa;
+            font-family: inherit;
+        }
+
+        body.dark-mode .booking-form input,
+        body.dark-mode .booking-form select,
+        body.dark-mode .booking-form textarea {
+            background: #333;
+            border-color: #555;
+            color: #e0e0e0;
+        }
+
+        .booking-form input:focus,
+        .booking-form select:focus,
+        .booking-form textarea:focus {
+            border-color: #c8a96a;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(200, 169, 106, 0.2);
+        }
+
+        .booking-form textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        /* ===== 16. CTA SECTION ===== */
+        .cta {
+            margin-top: 60px;
+            background: linear-gradient(135deg, #1f1f1f, #2a1a0a);
+            color: #fff;
+            text-align: center;
+            padding: 60px 30px;
+            border-radius: 16px;
+        }
+
+        body.dark-mode .cta {
+            background: linear-gradient(135deg, #0a0a0a, #1a0a00);
+        }
+
+        .cta h2 {
+            margin-bottom: 20px;
+            font-size: 32px;
+        }
+
+        .cta p {
+            color: #ccc;
+            font-size: 18px;
+        }
+
+        .btn {
+            display: inline-block;
+            margin-top: 20px;
+            background: #c8a96a;
+            color: #fff;
+            text-decoration: none;
+            padding: 14px 35px;
+            border-radius: 30px;
+            transition: .3s;
+            border: none;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background: #b8943e;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, .2);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid #c8a96a;
+            color: #c8a96a;
+        }
+
+        .btn-secondary:hover {
+            background: #c8a96a;
+            color: #fff;
+        }
+
+        /* ===== 17. BACK HOME ===== */
+        .home {
+            text-align: center;
+            margin: 50px 0;
+        }
+
+        .home a {
+            display: inline-block;
+            text-decoration: none;
+            background: #333;
+            color: #fff;
+            padding: 14px 30px;
+            border-radius: 30px;
+            transition: .3s;
+        }
+
+        body.dark-mode .home a {
+            background: #444;
+        }
+
+        .home a:hover {
+            background: #c8a96a;
+        }
+
+        /* ===== 18. TOAST NOTIFICATIONS ===== */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #333;
+            color: #fff;
+            padding: 18px 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, .3);
+            transform: translateY(100px);
+            opacity: 0;
+            transition: 0.5s;
+            z-index: 999;
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .toast.success {
+            background: #27ae60;
+        }
+
+        .toast.error {
+            background: #e74c3c;
+        }
+
+        /* ===== 19. FOOTER ===== */
+        .footer {
+            background: #111;
+            color: #fff;
+            padding: 50px 0 0;
+        }
+
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 40px;
+            padding: 0 0 30px;
+        }
+
+        .footer-box h3 {
+            color: #c8a96a;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+
+        .footer-box p {
+            color: #aaa;
+            font-size: 14px;
+            line-height: 1.8;
+            margin-bottom: 10px;
+        }
+
+        .footer-box ul li {
+            padding: 6px 0;
+        }
+
+        .footer-box ul li a {
+            color: #aaa;
+            transition: 0.3s;
+        }
+
+        .footer-box ul li a:hover {
+            color: #c8a96a;
+            padding-left: 5px;
+        }
+
+        .footer-logo {
+            font-size: 24px;
+            color: #c8a96a;
+            margin-bottom: 15px;
+        }
+
+        .footer-logo i {
+            margin-right: 10px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .social-links a {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 40px;
+            height: 40px;
+            background: #222;
+            color: #fff;
+            border-radius: 50%;
+            transition: 0.3s;
+        }
+
+        .social-links a:hover {
+            background: #c8a96a;
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #222;
+            padding: 20px 0;
+            text-align: center;
+            color: #888;
+            font-size: 14px;
+        }
+
+        /* ===== 20. RESPONSIVE ===== */
+        @media(max-width: 992px) {
+            .gym-intro {
+                grid-template-columns: 1fr;
+            }
+
+            .gym-intro-image {
+                max-height: 300px;
+            }
+
+            .footer-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media(max-width: 768px) {
+            .hero h1 {
+                font-size: 40px;
+            }
+
+            .hero p {
+                font-size: 18px;
+            }
+
+            #menu-btn {
+                display: block;
+            }
+
+            .navbar ul {
+                display: none;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                right: 0;
+                background: #fff;
+                flex-direction: column;
+                padding: 20px;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, .1);
+                gap: 15px;
+            }
+
+            body.dark-mode .navbar ul {
+                background: #1a1a1a;
+            }
+
+            .navbar ul.show {
+                display: flex;
+            }
+
+            .theme-toggle {
+                top: 70px;
+                right: 20px;
+                width: 40px;
+                height: 40px;
+                font-size: 18px;
+            }
+
+            .booking-form .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .social-links {
+                justify-content: center;
+            }
+
+            .header .container {
+                width: 100%;
+                padding: 0 10px;
+            }
+        }
+
+        @media(max-width: 480px) {
+            .hero h1 {
+                font-size: 30px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            .container {
+                padding: 40px 0;
+            }
+
+            .title {
+                font-size: 28px;
+            }
+
+            .packages-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .classes-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .equipment-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .trainers-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .gym-features {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .cta {
+                padding: 40px 20px;
+            }
+
+            .cta h2 {
+                font-size: 24px;
+            }
+
+            .btn {
+                padding: 12px 25px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== DARK MODE TOGGLE ===== -->
+    <button class="theme-toggle" onclick="toggleTheme()" id="themeToggle">
+        🌙
+    </button>
+
+    <!-- ===== TOAST NOTIFICATION ===== -->
+    <div class="toast" id="toast"></div>
+
+    <!-- ===== HEADER / NAVIGATION ===== -->
+    <header class="header">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-hotel"></i>
+                <span>Luxury Hotel</span>
+            </a>
+
+     
+        <nav class="navbar" id="navbar">
+            <ul>
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="room.html">Rooms</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="login.html" class="btn btn-login">Login</a></li>
+                <li><a href="booking.html" class="btn btn-book">Book</a></li>
+            </ul>
+        </nav>
+
+            <button id="menu-btn" onclick="toggleMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- ===== HERO SECTION ===== -->
+    <section class="hero">
+        <div>
+            <div class="hero-badge">💪 State-of-the-Art Gym</div>
+            <h1>Luxury Gym & Fitness</h1>
+            <p>Transform Your Body, Elevate Your Mind</p>
+            <div class="scroll-down">
+                <i class="fas fa-chevron-down"></i>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== MAIN CONTENT ===== -->
+    <div class="container">
+
+        <!-- Welcome Section -->
+        <h2 class="title">Welcome to Our Gym</h2>
+        <p class="about">
+            Achieve your fitness goals in our state-of-the-art gym. Equipped with the latest technology
+            and led by certified trainers, we offer a premium fitness experience for all levels.
+            From cardio to strength training, we have everything you need to stay fit and healthy.
+        </p>
+
+        <!-- ===== GYM INTRO ===== -->
+        <div class="gym-intro">
+            <div class="gym-intro-image">
+                <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800" alt="Luxury Gym">
+            </div>
+            <div class="gym-intro-text">
+                <h2>Your Fitness Journey Starts Here</h2>
+                <p>
+                    Our <span class="highlight">premium fitness center</span> spans over 10,000 square feet
+                    and features cutting-edge equipment from world-class brands. Whether you're a beginner
+                    or a seasoned athlete, our facilities and expert trainers will help you reach your goals.
+                </p>
+                <p>
+                    <span class="highlight">🏋️ 10,000+</span> sq ft of fitness space
+                </p>
+                <p>
+                    <span class="highlight">👨‍🏫</span> Certified personal trainers
+                </p>
+                <p>
+                    <span class="highlight">📅</span> 50+ classes per week
+                </p>
+            </div>
+        </div>
+
+        <!-- ===== GYM FEATURES ===== -->
+        <h2 class="title" id="features">Gym Features</h2>
+
+        <div class="gym-features">
+            <div class="gym-feature-item">
+                <i class="fas fa-dumbbell"></i>
+                <h4>Strength Training</h4>
+                <p>Free weights & resistance machines</p>
+            </div>
+            <div class="gym-feature-item">
+                <i class="fas fa-heartbeat"></i>
+                <h4>Cardio Zone</h4>
+                <p>Treadmills, bikes & ellipticals</p>
+            </div>
+            <div class="gym-feature-item">
+                <i class="fas fa-user-md"></i>
+                <h4>Personal Trainers</h4>
+                <p>Expert guidance & support</p>
+            </div>
+            <div class="gym-feature-item">
+                <i class="fas fa-yoga"></i>
+                <h4>Yoga Studio</h4>
+                <p>Daily yoga & pilates classes</p>
+            </div>
+            <div class="gym-feature-item">
+                <i class="fas fa-lock"></i>
+                <h4>Locker Rooms</h4>
+                <p>Secure lockers & showers</p>
+            </div>
+            <div class="gym-feature-item">
+                <i class="fas fa-tint"></i>
+                <h4>Hydration Station</h4>
+                <p>Complimentary water & towels</p>
+            </div>
+        </div>
+
+        <!-- ===== EQUIPMENT ===== -->
+        <h2 class="title" id="equipment">Our Equipment</h2>
+
+        <div class="equipment-grid">
+            <div class="equipment-card">
+                <div class="equip-icon">🏋️</div>
+                <h4>Free Weights</h4>
+                <p>Dumbbells 2-50kg, barbells & benches</p>
+            </div>
+            <div class="equipment-card">
+                <div class="equip-icon">🏃</div>
+                <h4>Treadmills</h4>
+                <p>10 premium treadmills with screens</p>
+            </div>
+            <div class="equipment-card">
+                <div class="equip-icon">🚴</div>
+                <h4>Spin Bikes</h4>
+                <p>8 professional spin bikes</p>
+            </div>
+            <div class="equipment-card">
+                <div class="equip-icon">🏋️‍♀️</div>
+                <h4>Machines</h4>
+                <p>Full range of resistance machines</p>
+            </div>
+            <div class="equipment-card">
+                <div class="equip-icon">🧘</div>
+                <h4>Yoga Mats</h4>
+                <p>Premium mats & accessories</p>
+            </div>
+            <div class="equipment-card">
+                <div class="equip-icon">💪</div>
+                <h4>Functional Training</h4>
+                <p>TRX, kettlebells & battle ropes</p>
+            </div>
+        </div>
+
+        <!-- ===== FITNESS CLASSES ===== -->
+        <h2 class="title" id="classes">Fitness Classes</h2>
+
+        <div class="classes-grid">
+
+            <div class="class-card">
+                <div class="class-icon">🧘</div>
+                <h3>Yoga</h3>
+                <p>Find your inner peace with our calming yoga sessions. Suitable for all levels.</p>
+                <span class="class-time">🕐 Mon, Wed, Fri - 7:00 AM</span>
+            </div>
+
+            <div class="class-card">
+                <div class="class-icon">💃</div>
+                <h3>Zumba</h3>
+                <p>High-energy dance workout that feels like a party. Burn calories while having fun!</p>
+                <span class="class-time">🕐 Tue, Thu - 6:00 PM</span>
+            </div>
+
+            <div class="class-card">
+                <div class="class-icon">🏋️</div>
+                <h3>HIIT</h3>
+                <p>High-Intensity Interval Training for maximum results in minimum time.</p>
+                <span class="class-time">🕐 Mon, Wed, Fri - 5:00 PM</span>
+            </div>
+
+            <div class="class-card">
+                <div class="class-icon">🧘‍♀️</div>
+                <h3>Pilates</h3>
+                <p>Strengthen your core and improve flexibility with our pilates classes.</p>
+                <span class="class-time">🕐 Tue, Thu - 8:00 AM</span>
+            </div>
+
+            <div class="class-card">
+                <div class="class-icon">🥊</div>
+                <h3>Boxing</h3>
+                <p>Full-body workout with boxing techniques. Great for stress relief and fitness.</p>
+                <span class="class-time">🕐 Sat - 10:00 AM</span>
+            </div>
+
+            <div class="class-card">
+                <div class="class-icon">🚴</div>
+                <h3>Spin Class</h3>
+                <p>Indoor cycling with motivating music and expert instruction.</p>
+                <span class="class-time">🕐 Mon, Thu - 6:30 AM</span>
+            </div>
+
+        </div>
+
+        <!-- ===== PERSONAL TRAINERS ===== -->
+        <h2 class="title" id="trainers">Meet Our Trainers</h2>
+
+        <div class="trainers-grid">
+
+            <div class="trainer-card">
+                <div class="trainer-avatar">👨</div>
+                <h4>James Wilson</h4>
+                <div class="trainer-title">Head Trainer</div>
+                <p>20 years of experience. Specializes in strength & conditioning.</p>
+                <button class="btn-small" onclick="bookTrainer('James Wilson')">Book Session</button>
+            </div>
+
+            <div class="trainer-card">
+                <div class="trainer-avatar">👩</div>
+                <h4>Sarah Mitchell</h4>
+                <div class="trainer-title">Yoga Instructor</div>
+                <p>Certified yoga teacher with 10 years of experience in Vinyasa & Hatha.</p>
+                <button class="btn-small" onclick="bookTrainer('Sarah Mitchell')">Book Session</button>
+            </div>
+
+            <div class="trainer-card">
+                <div class="trainer-avatar">👨</div>
+                <h4>Mike Johnson</h4>
+                <div class="trainer-title">Fitness Coach</div>
+                <p>Expert in HIIT, functional training & weight loss programs.</p>
+                <button class="btn-small" onclick="bookTrainer('Mike Johnson')">Book Session</button>
+            </div>
+
+            <div class="trainer-card">
+                <div class="trainer-avatar">👩</div>
+                <h4>Emma Davis</h4>
+                <div class="trainer-title">Pilates Specialist</div>
+                <p>Certified pilates instructor with a focus on core strength and posture.</p>
+                <button class="btn-small" onclick="bookTrainer('Emma Davis')">Book Session</button>
+            </div>
+
+        </div>
+
+        <!-- ===== MEMBERSHIP PLANS ===== -->
+        <h2 class="title" id="packages">Membership Plans</h2>
+
+        <div class="packages-grid">
+
+            <div class="package-card">
+                <div class="package-icon">💪</div>
+                <h3>Day Pass</h3>
+                <div class="package-price">$20 <small>/ day</small></div>
+                <ul>
+                    <li><i class="fas fa-check"></i> Full gym access</li>
+                    <li><i class="fas fa-check"></i> Cardio & weights</li>
+                    <li><i class="fas fa-check"></i> Towel & water</li>
+                    <li><i class="fas fa-check"></i> Locker room access</li>
+                </ul>
+                <a href="booking.html" class="btn">Get Pass</a>
+            </div>
+
+            <div class="package-card popular">
+                <div class="popular-badge">⭐ Best Value</div>
+                <div class="package-icon">🏆</div>
+                <h3>Monthly Membership</h3>
+                <div class="package-price">$80 <small>/ month</small></div>
+                <ul>
+                    <li><i class="fas fa-check"></i> Unlimited gym access</li>
+                    <li><i class="fas fa-check"></i> All fitness classes</li>
+                    <li><i class="fas fa-check"></i> 1 personal training session</li>
+                    <li><i class="fas fa-check"></i> Free towel & water</li>
+                    <li><i class="fas fa-check"></i> Guest pass (1/month)</li>
+                </ul>
+                <a href="#book" class="btn">Get Plan</a>
+            </div>
+
+            <div class="package-card">
+                <div class="package-icon">👑</div>
+                <h3>Premium Annual</h3>
+                <div class="package-price">$700 <small>/ year</small></div>
+                <ul>
+                    <li><i class="fas fa-check"></i> Unlimited gym access</li>
+                    <li><i class="fas fa-check"></i> All fitness classes</li>
+                    <li><i class="fas fa-check"></i> 12 personal training sessions</li>
+                    <li><i class="fas fa-check"></i> Free towel & water</li>
+                    <li><i class="fas fa-check"></i> Guest pass (4/month)</li>
+                    <li><i class="fas fa-check"></i> Free fitness assessment</li>
+                </ul>
+                <a href="#book" class="btn">Get Plan</a>
+            </div>
+
+        </div>
+
+        <!-- ===== GUEST REVIEWS ===== -->
+        <h2 class="title" id="reviews">What Our Guests Say</h2>
+
+        <div class="review-grid">
+            <div class="review-card">
+                <div class="reviewer-avatar">👨</div>
+                <div class="stars">⭐⭐⭐⭐⭐</div>
+                <p class="review-text">"The best hotel gym I've ever used! Top-notch equipment and the trainers are incredibly knowledgeable."</p>
+                <div class="reviewer">Mark Thompson <span>- 🇺🇸</span></div>
+            </div>
+            <div class="review-card">
+                <div class="reviewer-avatar">👩</div>
+                <div class="stars">⭐⭐⭐⭐⭐</div>
+                <p class="review-text">"I loved the yoga classes! The instructor was amazing and the studio has the most beautiful views."</p>
+                <div class="reviewer">Lisa Chen <span>- 🇨🇦</span></div>
+            </div>
+            <div class="review-card">
+                <div class="reviewer-avatar">👨</div>
+                <div class="stars">⭐⭐⭐⭐</div>
+                <p class="review-text">"Great facilities and very clean. The staff were friendly and the equipment was all brand new."</p>
+                <div class="reviewer">Robert Kim <span>- 🇰🇷</span></div>
+            </div>
+        </div>
+
+        <!-- ===== AMENITIES ===== -->
+        <h2 class="title" id="amenities">Gym Amenities</h2>
+
+        <div class="amenities-grid">
+            <div class="amenity-item">
+                <i class="fas fa-towel"></i>
+                <h4>Free Towels</h4>
+            </div>
+            <div class="amenity-item">
+                <i class="fas fa-tint"></i>
+                <h4>Water Station</h4>
+            </div>
+            <div class="amenity-item">
+                <i class="fas fa-lock"></i>
+                <h4>Lockers</h4>
+            </div>
+            <div class="amenity-item">
+                <i class="fas fa-shower"></i>
+                <h4>Showers</h4>
+            </div>
+            <div class="amenity-item">
+                <i class="fas fa-wifi"></i>
+                <h4>Free WiFi</h4>
+            </div>
+            <div class="amenity-item">
+                <i class="fas fa-tv"></i>
+                <h4>Cardio TVs</h4>
+            </div>
+            <div class="amenity-item">
+                <i class="fas fa-music"></i>
+                <h4>Music System</h4>
+            </div>
+            <div class="amenity-item">
+                <i class="fas fa-heart"></i>
+                <h4>Defibrillator</h4>
+            </div>
+        </div>
+
+        <!-- ===== BOOKING FORM ===== -->
+        <h2 class="title" id="book">📅 Book Your Fitness Session</h2>
+
+        <div class="booking-form">
+            <form onsubmit="bookGym(event)">
+                <div class="form-grid">
+                    <div>
+                        <label for="bookName">Full Name</label>
+                        <input type="text" id="bookName" placeholder="John Doe" required>
+                    </div>
+                    <div>
+                        <label for="bookEmail">Email</label>
+                        <input type="email" id="bookEmail" placeholder="john@example.com" required>
+                    </div>
+                    <div>
+                        <label for="bookPhone">Phone</label>
+                        <input type="tel" id="bookPhone" placeholder="+1 234 567 890" required>
+                    </div>
+                    <div>
+                        <label for="bookService">Select Service</label>
+                        <select id="bookService" required>
+                            <option value="">Choose a service...</option>
+                            <option value="Day Pass">Day Pass - $20</option>
+                            <option value="Monthly Membership">Monthly Membership - $80</option>
+                            <option value="Premium Annual">Premium Annual - $700</option>
+                            <option value="Personal Training">Personal Training - $50/session</option>
+                            <option value="Yoga Class">Yoga Class - $15</option>
+                            <option value="Zumba Class">Zumba Class - $15</option>
+                            <option value="HIIT Class">HIIT Class - $15</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="bookDate">Date</label>
+                        <input type="date" id="bookDate" required>
+                    </div>
+                    <div>
+                        <label for="bookTime">Time</label>
+                        <select id="bookTime" required>
+                            <option value="6:00 AM">6:00 AM</option>
+                            <option value="7:00 AM">7:00 AM</option>
+                            <option value="8:00 AM">8:00 AM</option>
+                            <option value="9:00 AM">9:00 AM</option>
+                            <option value="10:00 AM">10:00 AM</option>
+                            <option value="11:00 AM">11:00 AM</option>
+                            <option value="12:00 PM">12:00 PM</option>
+                            <option value="1:00 PM">1:00 PM</option>
+                            <option value="2:00 PM">2:00 PM</option>
+                            <option value="3:00 PM">3:00 PM</option>
+                            <option value="4:00 PM">4:00 PM</option>
+                            <option value="5:00 PM">5:00 PM</option>
+                            <option value="6:00 PM">6:00 PM</option>
+                            <option value="7:00 PM">7:00 PM</option>
+                        </select>
+                    </div>
+                </div>
+                <div style="margin-top:15px;">
+                    <label for="bookNotes">Special Requests</label>
+                    <textarea id="bookNotes" placeholder="Any special requests or preferences..."></textarea>
+                </div>
+                <div style="margin-top:20px; text-align:center;">
+                    <button type="submit" class="btn">💪 Book Now</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- ===== CTA SECTION ===== -->
+        <div class="cta">
+            <h2>💪 Start Your Fitness Journey Today</h2>
+            <p>
+                Join our premium gym and experience world-class facilities, expert trainers,
+                and a supportive community. Transform your body and mind with us.
+            </p>
+            <a href="#book" class="btn">Join Now</a>
+            <a href="index.html" class="btn btn-secondary" style="margin-left:15px;">🏠 WiFi Page</a>
+        </div>
+
+        <!-- ===== BACK HOME ===== -->
+        <div class="home">
+            <a href="index.html">
+                🏠 Back To Home
+            </a>
+        </div>
+
+    </div>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+        <div class="container footer-container">
+
+            <!-- Hotel Info -->
+            <div class="footer-box">
+                <h2 class="footer-logo">
+                    <i class="fas fa-hotel"></i> Luxury Hotel
+                </h2>
+                <p>
+                    Experience luxury, comfort, and world-class hospitality.
+                    We provide premium rooms and exceptional services to make
+                    every stay unforgettable.
+                </p>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="footer-box">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="room.html">Rooms</a></li>
+                    <li><a href="restaurant.html">Restaurant</a></li>
+                    <li><a href="spa.html">Spa</a></li>
+                    <li><a href="pool.html">Pool</a></li>
+                    <li><a href="gym.html">Gym</a></li>
+                </ul>
+            </div>
+
+            <!-- Services -->
+            <div class="footer-box">
+                <h3>Services</h3>
+                <ul>
+                    <li>Luxury Rooms</li>
+                    <li>Restaurant</li>
+                    <li>Spa & Wellness</li>
+                    <li>Swimming Pool</li>
+                    <li>Fitness Center</li>
+                    <li>Airport Pickup</li>
+                </ul>
+            </div>
+
+            <!-- Contact -->
+            <div class="footer-box">
+                <h3>Contact Us</h3>
+                <p>
+                    <i class="fas fa-map-marker-alt"></i>
+                    Kigali, Rwanda
+                </p>
+                <p>
+                    <i class="fas fa-phone"></i>
+                    +250 788 000 000
+                </p>
+                <p>
+                    <i class="fas fa-envelope"></i>
+                    info@luxuryhotel.com
+                </p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+            <p>© 2026 Luxury Hotel. All Rights Reserved</p>
+        </div>
+    </footer>
+
+    <!-- ============================================= -->
+    <!-- JAVASCRIPT -->
+    <!-- ============================================= -->
+    <script>
+        // ===== TOGGLE MENU (Mobile) =====
+        function toggleMenu() {
+            const menu = document.getElementById('navMenu');
+            menu.classList.toggle('show');
+        }
+
+        // ===== TOGGLE DARK MODE =====
+        function toggleTheme() {
+            document.body.classList.toggle('dark-mode');
+            const btn = document.getElementById('themeToggle');
+            if (document.body.classList.contains('dark-mode')) {
+                btn.textContent = '☀️';
+                localStorage.setItem('theme', 'dark');
+            } else {
+                btn.textContent = '🌙';
+                localStorage.setItem('theme', 'light');
+            }
+        }
+
+        // Load saved theme
+        if (localStorage.getItem('theme') === 'dark') {
+            document.body.classList.add('dark-mode');
+            document.getElementById('themeToggle').textContent = '☀️';
+        }
+
+        // ===== TOAST NOTIFICATION =====
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.className = 'toast show ' + type;
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // ===== BOOK GYM =====
+        function bookGym(e) {
+            e.preventDefault();
+            const name = document.getElementById('bookName').value;
+            const service = document.getElementById('bookService').value;
+            const date = document.getElementById('bookDate').value;
+            const time = document.getElementById('bookTime').value;
+
+            if (!service) {
+                showToast('⚠️ Please select a service!', 'error');
+                return;
+            }
+
+            showToast(`✅ Thank you ${name}! Your gym booking (${service}) is confirmed for ${date} at ${time}`, 'success');
+
+            // Reset form
+            e.target.reset();
+
+            // Set default date to tomorrow
+            const tomorrow = new Date();
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            document.getElementById('bookDate').value = tomorrow.toISOString().split('T')[0];
+        }
+
+        // ===== BOOK TRAINER =====
+        function bookTrainer(trainer) {
+            showToast(`✅ You selected ${trainer} as your trainer! We'll contact you shortly.`, 'success');
+        }
+
+        // ===== SET DEFAULT DATE =====
+        const tomorrow = new Date();
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        document.getElementById('bookDate').value = tomorrow.toISOString().split('T')[0];
+
+        // ===== CLOSE MENU ON LINK CLICK (Mobile) =====
+        document.querySelectorAll('#navMenu a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('navMenu').classList.remove('show');
+            });
+        });
+
+        // ===== SMOOTH SCROLL =====
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        console.log('✅ Luxury Gym page loaded successfully!');
+    </script>
+
+</body>
+</html>

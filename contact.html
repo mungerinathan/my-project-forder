@@ -1,0 +1,1131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Luxury Hotel · Contact & Admin</title>
+    <!-- Font Awesome 6 (free) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+        /* ----- RESET & BASE ----- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #faf9f6;
+            color: #1e1e2a;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        img { max-width: 100%; height: auto; display: block; }
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+        .btn {
+            display: inline-block;
+            background: #c8a27b;
+            color: #fff;
+            padding: 14px 36px;
+            border-radius: 50px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            transition: 0.3s ease;
+            border: 2px solid #c8a27b;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        .btn:hover {
+            background: #b08b66;
+            border-color: #b08b66;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        .title {
+            font-size: 2.8rem;
+            text-align: center;
+            margin-bottom: 2.5rem;
+            position: relative;
+            font-weight: 300;
+        }
+        .title::after {
+            content: '';
+            display: block;
+            width: 70px;
+            height: 4px;
+            background: #c8a27b;
+            margin: 12px auto 0;
+            border-radius: 4px;
+        }
+        section { padding: 80px 0; }
+
+        /* ----- HEADER / NAV ----- */
+        .header {
+            background: #ffffff;
+            padding: 20px 0;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid #eee;
+        }
+        .header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.7rem;
+            font-weight: 700;
+            color: #1e1e2a;
+        }
+        .logo i { color: #c8a27b; font-size: 2rem; }
+        .navbar ul {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .navbar ul li a {
+            padding: 8px 18px;
+            border-radius: 50px;
+            font-weight: 500;
+            transition: 0.2s;
+            color: #2d2d3f;
+            font-size: 0.95rem;
+        }
+        .navbar ul li a:hover,
+        .navbar ul li a.active {
+            background: #c8a27b;
+            color: #fff;
+        }
+        #menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 2rem;
+            color: #1e1e2a;
+            cursor: pointer;
+        }
+        /* ----- PAGE HEADER (Hero) ----- */
+        .page-header {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.6)),
+                url('https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+            padding: 100px 0;
+            text-align: center;
+            color: #fff;
+        }
+        .page-header h1 { font-size: 4rem; font-weight: 300; margin-bottom: 10px; }
+        .page-header p { font-size: 1.2rem; opacity: 0.9; }
+
+        /* ----- CONTACT SECTION (split) ----- */
+        .contact-page { background: #faf9f6; }
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: start;
+        }
+        /* Contact Info Cards */
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        .info-card {
+            background: #fff;
+            padding: 30px 35px;
+            border-radius: 20px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.04);
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            transition: 0.3s;
+            border-left: 5px solid #c8a27b;
+        }
+        .info-card:hover {
+            transform: translateX(8px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.07);
+        }
+        .info-card i { font-size: 2.2rem; color: #c8a27b; width: 50px; text-align: center; }
+        .info-card .details h3 { font-size: 1.1rem; font-weight: 600; margin-bottom: 4px; }
+        .info-card .details p { color: #5a5a6e; font-size: 0.95rem; }
+
+        /* Contact Form */
+        .contact-form {
+            background: #fff;
+            padding: 40px 45px;
+            border-radius: 24px;
+            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.04);
+        }
+        .contact-form h3 { font-size: 1.8rem; font-weight: 600; margin-bottom: 8px; }
+        .contact-form .subtitle { color: #5a5a6e; margin-bottom: 30px; font-size: 0.95rem; }
+        .form-group { margin-bottom: 22px; }
+        .form-group label { display: block; font-weight: 600; font-size: 0.9rem; margin-bottom: 8px; }
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 14px 18px;
+            border: 2px solid #e8e6e1;
+            border-radius: 14px;
+            font-size: 1rem;
+            transition: 0.3s;
+            background: #faf9f6;
+            font-family: inherit;
+        }
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #c8a27b;
+            background: #fff;
+            box-shadow: 0 0 0 4px rgba(200, 162, 123, 0.12);
+        }
+        .form-group textarea { height: 100px; resize: vertical; }
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        .contact-form .btn { width: 100%; padding: 16px; font-size: 1.05rem; }
+
+        /* ----- ADMIN PANEL (with password protection) ----- */
+        .admin-panel {
+            background: #fff;
+            border-radius: 24px;
+            padding: 30px 30px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.05);
+            margin-top: 30px;
+            border: 1px solid #eee;
+            transition: 0.3s;
+        }
+        .admin-panel h2 {
+            font-size: 1.8rem;
+            font-weight: 300;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        .admin-panel h2 i { color: #c8a27b; }
+        .admin-toggle {
+            background: #1e1e2a;
+            color: #fff;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+            margin-top: 10px;
+        }
+        .admin-toggle:hover { background: #c8a27b; }
+
+        /* Password overlay */
+        .password-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.7);
+            backdrop-filter: blur(8px);
+            z-index: 99999;
+            align-items: center;
+            justify-content: center;
+        }
+        .password-overlay.active {
+            display: flex;
+        }
+        .password-box {
+            background: #fff;
+            border-radius: 24px;
+            padding: 40px 45px;
+            max-width: 420px;
+            width: 100%;
+            text-align: center;
+            animation: fadeInUp 0.5s ease;
+            box-shadow: 0 30px 80px rgba(0,0,0,0.5);
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        .password-box .lock-icon {
+            font-size: 3.5rem;
+            color: #c8a27b;
+            margin-bottom: 15px;
+        }
+        .password-box h2 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #1e1e2a;
+            margin-bottom: 10px;
+        }
+        .password-box p {
+            color: #6c757d;
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+        }
+        .password-box .input-group {
+            position: relative;
+            margin-bottom: 20px;
+        }
+        .password-box .input-group i {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #6c757d;
+            font-size: 1.1rem;
+        }
+        .password-box .input-group input {
+            width: 100%;
+            padding: 14px 16px 14px 48px;
+            border: 2px solid #e9ecef;
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: 0.3s;
+            background: #fff;
+            color: #1e1e2a;
+        }
+        .password-box .input-group input:focus {
+            outline: none;
+            border-color: #c8a27b;
+            box-shadow: 0 0 0 4px rgba(200, 162, 123, 0.15);
+        }
+        .password-box .input-group input.error {
+            border-color: #dc3545;
+            animation: shake 0.5s ease;
+        }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20% { transform: translateX(-10px); }
+            40% { transform: translateX(10px); }
+            60% { transform: translateX(-10px); }
+            80% { transform: translateX(10px); }
+        }
+        .password-box .btn-unlock {
+            width: 100%;
+            padding: 14px;
+            background: #c8a27b;
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.05rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .password-box .btn-unlock:hover {
+            background: #b08b66;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(200, 162, 123, 0.3);
+        }
+        .password-box .btn-unlock:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+        .password-box .error-message {
+            color: #dc3545;
+            font-size: 0.9rem;
+            margin-top: 10px;
+            min-height: 24px;
+        }
+        .password-box .hint {
+            font-size: 0.8rem;
+            color: #6c757d;
+            margin-top: 15px;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+        .password-box .hint strong { color: #c8a27b; }
+
+        /* Admin messages */
+        .admin-messages {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        .msg-card {
+            background: #f8f7f4;
+            padding: 18px 22px;
+            border-radius: 16px;
+            border-left: 5px solid #c8a27b;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .msg-card .msg-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            color: #5a5a6e;
+        }
+        .msg-card .msg-meta strong { color: #1e1e2a; }
+        .msg-card .msg-text { font-size: 1rem; margin: 6px 0; }
+        .msg-card .reply-area {
+            display: flex;
+            gap: 10px;
+            margin-top: 8px;
+            flex-wrap: wrap;
+        }
+        .msg-card .reply-area input {
+            flex: 1;
+            padding: 10px 14px;
+            border: 2px solid #e0ddd6;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            min-width: 150px;
+        }
+        .msg-card .reply-area button {
+            background: #c8a27b;
+            border: none;
+            color: #fff;
+            padding: 10px 22px;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .msg-card .reply-area button:hover { background: #b08b66; }
+        .msg-card .admin-reply {
+            background: #eae7e0;
+            padding: 10px 16px;
+            border-radius: 30px;
+            margin-top: 8px;
+            font-style: italic;
+            color: #2d2d3f;
+        }
+        .badge {
+            background: #c8a27b;
+            color: #fff;
+            padding: 2px 12px;
+            border-radius: 30px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+
+        /* Map Section */
+        .map-section { background: #fff; padding: 0 0 80px 0; }
+        .map-container {
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
+            height: 400px;
+        }
+        .map-container iframe { width: 100%; height: 100%; border: 0; }
+
+        /* Footer */
+        footer {
+            background: #1e1e2a;
+            color: #ccc;
+            padding: 40px 0;
+            text-align: center;
+        }
+        footer p { font-size: 0.95rem; letter-spacing: 0.5px; }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+            .page-header h1 { font-size: 3rem; }
+        }
+        @media (max-width: 768px) {
+            #menu-btn { display: block; }
+            .navbar { display: none; width: 100%; margin-top: 20px; border-top: 1px solid #eee; padding-top: 20px; }
+            .navbar.open { display: block; }
+            .navbar ul { flex-direction: column; align-items: stretch; gap: 6px; }
+            .navbar ul li a { display: block; padding: 12px 20px; border-radius: 10px; text-align: center; }
+            .page-header h1 { font-size: 2.4rem; }
+            .page-header { padding: 70px 0; }
+            .title { font-size: 2.2rem; }
+            .contact-form { padding: 30px 20px; }
+            .form-row { grid-template-columns: 1fr; }
+            .info-card { padding: 20px 25px; gap: 18px; }
+            .map-container { height: 280px; }
+            .password-box { padding: 30px 25px; }
+        }
+        @media (max-width: 480px) {
+            .page-header h1 { font-size: 2rem; }
+            .contact-form h3 { font-size: 1.4rem; }
+            .info-card i { font-size: 1.6rem; width: 35px; }
+            .password-box h2 { font-size: 1.3rem; }
+            .password-box { padding: 25px 20px; }
+        }
+
+                /*=========================
+FOOTER
+=========================*/
+
+.footer{
+    background:#111827;
+    color:#fff;
+    padding:70px 0 0;
+}
+
+.footer-container{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+    gap:40px;
+}
+
+.footer-box h3,
+.footer-logo{
+    margin-bottom:20px;
+    color:#d4af37;
+}
+
+.footer-logo i{
+    margin-right:8px;
+}
+
+.footer-box p{
+    color:#ccc;
+    line-height:1.8;
+    margin-bottom:12px;
+}
+
+.footer-box ul{
+    list-style:none;
+}
+
+.footer-box ul li{
+    margin-bottom:12px;
+}
+
+.footer-box ul li a{
+    color:#ccc;
+    transition:.3s;
+}
+
+.footer-box ul li a:hover{
+    color:#d4af37;
+    padding-left:8px;
+}
+
+.footer-box i{
+    color:#d4af37;
+    margin-right:8px;
+}
+
+.social-links{
+    margin-top:20px;
+}
+
+.social-links a{
+    display:inline-flex;
+    justify-content:center;
+    align-items:center;
+    width:42px;
+    height:42px;
+    background:#1f2937;
+    color:#fff;
+    border-radius:50%;
+    margin-right:10px;
+    transition:.3s;
+}
+
+.social-links a:hover{
+    background:#d4af37;
+    color:#111827;
+    transform:translateY(-5px);
+}
+
+.footer-bottom{
+    margin-top:50px;
+    padding:20px 0;
+    border-top:1px solid rgba(255,255,255,.1);
+    text-align:center;
+}
+
+.footer-bottom p{
+    color:#aaa;
+    font-size:15px;
+}
+
+/*=========================
+RESPONSIVE
+=========================*/
+
+@media(max-width:768px){
+
+.footer{
+    text-align:center;
+}
+
+.social-links{
+    justify-content:center;
+}
+
+}
+    </style>
+</head>
+<body>
+
+<!-- ================= HEADER ================= -->
+<header class="header">
+    <div class="container">
+        <a href="#" class="logo">
+            <i class="fas fa-hotel"></i>
+            <span>Luxury Hotel</span>
+        </a>
+        <nav class="navbar" id="navbar">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="room.html">Rooms</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html" class="active">Contact</a></li>
+                <li><a href="login.html" class="btn" style="padding: 6px 22px;">Login</a></li>
+                <li><a href="booking.html" class="btn" style="padding: 6px 22px; background: #1e1e2a; border-color: #1e1e2a;">Book</a></li>
+            </ul>
+        </nav>
+        <button id="menu-btn"><i class="fas fa-bars"></i></button>
+    </div>
+</header>
+
+<!-- ================= PAGE HEADER ================= -->
+<section class="page-header">
+    <div class="container">
+        <h1>Contact Us</h1>
+        <p>We'd love to hear from you. Reach out anytime.</p>
+    </div>
+</section>
+
+<!-- ================= CONTACT + ADMIN SECTION ================= -->
+<section class="contact-page" id="contact">
+    <div class="container">
+        <div class="contact-grid">
+            <!-- Left: Contact Info -->
+            <div class="contact-info">
+                <div class="info-card">
+                    <i class="fas fa-phone-alt"></i>
+                    <div class="details">
+                        <h3>Phone</h3>
+                        <p>+250 788 000 000</p>
+                        <p style="font-size: 0.85rem; color: #888;">Mon–Fri, 8AM–8PM</p>
+                    </div>
+                </div>
+                <div class="info-card">
+                    <i class="fas fa-envelope"></i>
+                    <div class="details">
+                        <h3>Email</h3>
+                        <p>info@luxuryhotel.com</p>
+                        <p style="font-size: 0.85rem; color: #888;">We reply within 24h</p>
+                    </div>
+                </div>
+                <div class="info-card">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <div class="details">
+                        <h3>Location</h3>
+                        <p>KG 123 St, Kigali, Rwanda</p>
+                        <p style="font-size: 0.85rem; color: #888;">Opposite Convention Centre</p>
+                    </div>
+                </div>
+                <div class="info-card">
+                    <i class="fas fa-clock"></i>
+                    <div class="details">
+                        <h3>Reception Hours</h3>
+                        <p>24/7 – Always open</p>
+                        <p style="font-size: 0.85rem; color: #888;">Check-in: 2PM · Check-out: 11AM</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right: Contact Form + Admin Panel -->
+            <div class="contact-form">
+                <h3>Send a Message</h3>
+                <p class="subtitle">Fill in the form below and we'll get back to you shortly.</p>
+
+                <form id="userMessageForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Full Name</label>
+                            <input type="text" id="userName" placeholder="John Doe" required />
+                        </div>
+                        <div class="form-group">
+                            <label>Email Address</label>
+                            <input type="email" id="userEmail" placeholder="john@example.com" required />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Subject</label>
+                        <select id="userSubject">
+                            <option>General Inquiry</option>
+                            <option>Room Booking</option>
+                            <option>Events & Weddings</option>
+                            <option>Restaurant Reservation</option>
+                            <option>Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Message</label>
+                        <textarea id="userMessage" placeholder="Your message here..."></textarea>
+                    </div>
+                    <button type="submit" class="btn">
+                        <i class="fas fa-paper-plane" style="margin-right: 10px;"></i>
+                        Send Message
+                    </button>
+                </form>
+
+                <!-- ADMIN PANEL (with password protection) -->
+                <div style="margin-top: 40px; border-top: 2px dashed #ddd; padding-top: 20px;">
+                    <button class="admin-toggle" id="adminToggleBtn">
+                        <i class="fas fa-user-shield"></i> Admin Dashboard
+                        <span class="badge" id="msgCountBadge">0</span>
+                    </button>
+                    
+                    <!-- Password Overlay -->
+                    <div class="password-overlay" id="passwordOverlay">
+                        <div class="password-box">
+                            <div class="lock-icon">
+                                <i class="fas fa-lock"></i>
+                            </div>
+                            <h2>Admin Access</h2>
+                            <p>Please enter the admin password to view messages</p>
+                            <div class="input-group">
+                                <i class="fas fa-key"></i>
+                                <input type="password" id="adminPasswordInput" placeholder="Enter admin password" autofocus>
+                            </div>
+                            <button class="btn-unlock" id="unlockAdminBtn">
+                                <i class="fas fa-unlock-alt"></i> Unlock Dashboard
+                            </button>
+                            <div class="error-message" id="passwordError"></div>
+                            <div class="hint">
+                                <i class="fas fa-info-circle"></i>
+                                Default password: <strong>1975</strong>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Admin Panel Content (hidden until password is entered) -->
+                    <div class="admin-panel" id="adminPanel" style="display: none;">
+                        <h2><i class="fas fa-inbox"></i> Messages <span class="badge" id="msgCount">0</span></h2>
+                        <div class="admin-messages" id="adminMessagesList">
+                            <p style="color: #888; text-align: center; padding: 20px;">No messages yet.</p>
+                        </div>
+                        <button class="admin-toggle" onclick="logoutAdmin()" style="background:#dc3545; margin-top:15px;">
+                            <i class="fas fa-sign-out-alt"></i> Logout
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ================= MAP SECTION ================= -->
+<section class="map-section">
+    <div class="container">
+        <h2 class="title">Find Us Here</h2>
+        <div class="map-container">
+            <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15955.048851476984!2d30.0583707!3d-1.9440727!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x19dca4258ed8e597%3A0x9d8c2db6f04b8b4!2sKigali%2C%20Rwanda!5e0!3m2!1sen!2s!4v1700000000000" 
+                allowfullscreen="" 
+                loading="lazy" 
+                referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+        </div>
+    </div>
+</section>
+
+<footer class="footer">
+
+    <div class="container footer-container">
+
+        <!-- Hotel Info -->
+        <div class="footer-box">
+
+            <h2 class="footer-logo">
+                <i class="fas fa-hotel"></i> Luxury Hotel
+            </h2>
+
+            <p>
+                Experience luxury, comfort, and world-class hospitality.
+                We provide premium rooms and exceptional services to make
+                every stay unforgettable.
+            </p>
+
+        </div>
+
+        <!-- Quick Links -->
+        <div class="footer-box">
+
+            <h3>Quick Links</h3>
+
+            <ul>
+
+                <li><a href="index.html">Home</a></li>
+                <li><a href="room.html">Rooms</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="booking.html">Booking</a></li>
+                <li><a href="contact.html">Contact</a></li>
+
+            </ul>
+
+        </div>
+
+        <!-- Services -->
+        <div class="footer-box">
+
+            <h3>Services</h3>
+
+            <ul>
+
+                <li>Luxury Rooms</li>
+                <li>Restaurant</li>
+                <li>Spa & Wellness</li>
+                <li>Swimming Pool</li>
+                <li>Airport Pickup</li>
+
+            </ul>
+
+        </div>
+
+        <!-- Contact -->
+        <div class="footer-box">
+
+            <h3>Contact Us</h3>
+
+            <p>
+                <i class="fas fa-map-marker-alt"></i>
+                Kigali, Rwanda
+            </p>
+
+            <p>
+                <i class="fas fa-phone"></i>
+                +250 788 000 000
+            </p>
+
+            <p>
+                <i class="fas fa-envelope"></i>
+                info@luxuryhotel.com
+            </p>
+
+            <div class="social-links">
+
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+
+                <a href="#"><i class="fab fa-instagram"></i></a>
+
+                <a href="#"><i class="fab fa-twitter"></i></a>
+
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="footer-bottom">
+
+        <p>
+            © 2026 Luxury Hotel. All Rights Reserved |
+            Designed by Nathan
+        </p>
+
+    </div>
+
+</footer>
+
+<script>
+    (function() {
+        // ============================================================
+        // PASSWORD PROTECTION
+        // ============================================================
+        const ADMIN_PASSWORD = '1975';
+        let isAuthenticated = false;
+        let passwordAttempts = 0;
+        const maxAttempts = 5;
+
+        // DOM refs
+        const passwordOverlay = document.getElementById('passwordOverlay');
+        const passwordInput = document.getElementById('adminPasswordInput');
+        const unlockBtn = document.getElementById('unlockAdminBtn');
+        const passwordError = document.getElementById('passwordError');
+        const adminPanel = document.getElementById('adminPanel');
+        const adminToggleBtn = document.getElementById('adminToggleBtn');
+        const adminMessagesList = document.getElementById('adminMessagesList');
+        const msgCountBadge = document.getElementById('msgCount');
+        const msgCountBadgeToggle = document.getElementById('msgCountBadge');
+
+        // ---------- DATA STORE ----------
+        let messages = [];
+
+        // DOM refs for form
+        const form = document.getElementById('userMessageForm');
+        const userName = document.getElementById('userName');
+        const userEmail = document.getElementById('userEmail');
+        const userSubject = document.getElementById('userSubject');
+        const userMessage = document.getElementById('userMessage');
+
+        // ---------- RENDER ADMIN UI ----------
+        function renderAdmin() {
+            if (!adminMessagesList) return;
+            // update badge
+            msgCountBadge.textContent = messages.length;
+            msgCountBadgeToggle.textContent = messages.length;
+
+            if (messages.length === 0) {
+                adminMessagesList.innerHTML = `<p style="color: #888; text-align: center; padding: 20px;">No messages yet.</p>`;
+                return;
+            }
+
+            let html = '';
+            // show newest first
+            const sorted = [...messages].reverse();
+            sorted.forEach(msg => {
+                const replyHtml = msg.reply 
+                    ? `<div class="admin-reply"><i class="fas fa-reply" style="margin-right:6px; color:#c8a27b;"></i> Admin: ${escapeHtml(msg.reply)}</div>` 
+                    : '';
+
+                html += `
+                    <div class="msg-card" data-id="${msg.id}">
+                        <div class="msg-meta">
+                            <span><strong>${escapeHtml(msg.name)}</strong> · ${escapeHtml(msg.email)}</span>
+                            <span>${new Date(msg.timestamp).toLocaleString()}</span>
+                        </div>
+                        <div class="msg-text"><strong>${escapeHtml(msg.subject)}</strong> — ${escapeHtml(msg.text)}</div>
+                        ${replyHtml}
+                        <div class="reply-area">
+                            <input type="text" placeholder="Type admin reply..." class="replyInput" />
+                            <button class="replyBtn" data-id="${msg.id}">Reply</button>
+                        </div>
+                    </div>
+                `;
+            });
+            adminMessagesList.innerHTML = html;
+
+            // attach reply events
+            document.querySelectorAll('.replyBtn').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const card = this.closest('.msg-card');
+                    const id = this.dataset.id;
+                    const input = card.querySelector('.replyInput');
+                    const replyText = input.value.trim();
+                    if (!replyText) {
+                        alert('Please enter a reply.');
+                        return;
+                    }
+
+                    // update message
+                    const msg = messages.find(m => m.id == id);
+                    if (msg) {
+                        msg.reply = replyText;
+                        renderAdmin(); // re-render
+                        alert(`Reply sent to ${msg.name} (${msg.email}): "${replyText}"`);
+                    }
+                });
+            });
+
+            // allow enter key on reply input
+            document.querySelectorAll('.replyInput').forEach(inp => {
+                inp.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        const btn = this.closest('.reply-area').querySelector('.replyBtn');
+                        if (btn) btn.click();
+                    }
+                });
+            });
+        }
+
+        // simple escape
+        function escapeHtml(str) {
+            if (!str) return '';
+            return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+        }
+
+        // ---------- ADD NEW MESSAGE (from user form) ----------
+        function addMessage(name, email, subject, text) {
+            const newMsg = {
+                id: Date.now() + Math.random() * 1000,
+                name: name.trim(),
+                email: email.trim(),
+                subject: subject.trim(),
+                text: text.trim(),
+                reply: null,
+                timestamp: Date.now()
+            };
+            messages.push(newMsg);
+            renderAdmin();
+            // Update toggle badge
+            msgCountBadgeToggle.textContent = messages.length;
+        }
+
+        // ---------- FORM SUBMISSION ----------
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = userName.value.trim();
+            const email = userEmail.value.trim();
+            const subject = userSubject.value;
+            const text = userMessage.value.trim();
+
+            if (!name || !email || !text) {
+                alert('Please fill in all required fields (Name, Email, Message).');
+                return;
+            }
+            if (!email.includes('@')) {
+                alert('Please enter a valid email address.');
+                return;
+            }
+
+            addMessage(name, email, subject, text);
+            // reset form
+            form.reset();
+            alert('Your message has been sent. Admin will reply shortly.');
+        });
+
+        // ---------- SEED DEMO MESSAGES ----------
+        function seedDemoMessages() {
+            const demo = [
+                { name: 'Alice M.', email: 'alice@example.com', subject: 'Room Booking', text: 'I would like to book a suite for 2 nights, 15-17 May.' },
+                { name: 'Jean Pierre', email: 'jp@rwanda.com', subject: 'Events & Weddings', text: 'We are planning a wedding in August. Need capacity for 150 guests.' },
+                { name: 'Grace U.', email: 'grace@hotel.com', subject: 'General Inquiry', text: 'Do you have a spa? What are the hours?' }
+            ];
+            demo.forEach(d => {
+                const exists = messages.some(m => m.text === d.text && m.name === d.name);
+                if (!exists) {
+                    messages.push({
+                        id: Date.now() + Math.random() * 10000 + Math.random() * 1000,
+                        name: d.name,
+                        email: d.email,
+                        subject: d.subject,
+                        text: d.text,
+                        reply: null,
+                        timestamp: Date.now() - Math.floor(Math.random() * 86400000 * 3)
+                    });
+                }
+            });
+            renderAdmin();
+            msgCountBadgeToggle.textContent = messages.length;
+        }
+
+        // ---------- PASSWORD FUNCTIONS ----------
+        function validatePassword() {
+            const enteredPassword = passwordInput.value.trim();
+
+            if (enteredPassword === ADMIN_PASSWORD) {
+                // Correct password
+                isAuthenticated = true;
+                passwordOverlay.classList.remove('active');
+                passwordError.textContent = '';
+                passwordInput.classList.remove('error');
+                passwordInput.value = '';
+                
+                // Show admin panel
+                adminPanel.style.display = 'block';
+                renderAdmin();
+                
+                // Show success message
+                alert('Access granted! Welcome to Admin Dashboard.');
+                return true;
+            } else {
+                // Wrong password
+                passwordAttempts++;
+                passwordInput.classList.add('error');
+                passwordInput.value = '';
+                passwordInput.focus();
+
+                const remaining = maxAttempts - passwordAttempts;
+                if (remaining > 0) {
+                    passwordError.textContent = `Incorrect password. ${remaining} attempts remaining.`;
+                    passwordError.style.color = '#dc3545';
+                } else {
+                    passwordError.textContent = 'Too many failed attempts. Please refresh the page to try again.';
+                    passwordError.style.color = '#dc3545';
+                    unlockBtn.disabled = true;
+                    passwordInput.disabled = true;
+                }
+
+                // Shake animation
+                passwordInput.style.animation = 'none';
+                setTimeout(() => {
+                    passwordInput.style.animation = 'shake 0.5s ease';
+                }, 10);
+
+                return false;
+            }
+        }
+
+        // ---------- TOGGLE ADMIN PANEL ----------
+        adminToggleBtn.addEventListener('click', function() {
+            if (isAuthenticated) {
+                // If already authenticated, just toggle visibility
+                const isHidden = adminPanel.style.display === 'none';
+                adminPanel.style.display = isHidden ? 'block' : 'none';
+                if (isHidden) renderAdmin();
+            } else {
+                // Show password overlay
+                passwordOverlay.classList.add('active');
+                passwordInput.value = '';
+                passwordInput.focus();
+                passwordError.textContent = '';
+                passwordInput.classList.remove('error');
+                unlockBtn.disabled = false;
+                passwordInput.disabled = false;
+                passwordAttempts = 0;
+            }
+        });
+
+        // Unlock button click
+        unlockBtn.addEventListener('click', validatePassword);
+
+        // Enter key on password input
+        passwordInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                validatePassword();
+            }
+        });
+
+        // Clear error on input
+        passwordInput.addEventListener('input', function() {
+            this.classList.remove('error');
+            passwordError.textContent = '';
+        });
+
+        // Close password overlay on click outside
+        passwordOverlay.addEventListener('click', function(e) {
+            if (e.target === this) {
+                this.classList.remove('active');
+                passwordInput.value = '';
+                passwordError.textContent = '';
+                passwordInput.classList.remove('error');
+            }
+        });
+
+        // ---------- LOGOUT ADMIN ----------
+        window.logoutAdmin = function() {
+            isAuthenticated = false;
+            adminPanel.style.display = 'none';
+            alert('Logged out successfully.');
+        };
+
+        // ---------- INIT ----------
+        seedDemoMessages();
+        adminPanel.style.display = 'none';
+
+        console.log('🏨 Luxury Hotel - Contact & Admin');
+        console.log('🔐 Admin password: 1975');
+        console.log(`📩 ${messages.length} messages loaded`);
+    })();
+</script>
+
+</body>
+</html>
